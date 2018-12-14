@@ -10,8 +10,11 @@ program generate_random_vector
     call random_number(random_vector)
     random_vector = 100 * random_vector
 
-    open(20, file = 'vector.dat', status = 'replace')
-    write(20, *) (random_vector(i), i = 1, n)
+    open(20, file = 'vector', access = 'direct', &
+    &  form = 'unformatted', recl = 4)
+    do i = 1, n
+        write(20, rec = i) random_vector(i)
+    end do
     close(20)
 
 end program generate_random_vector

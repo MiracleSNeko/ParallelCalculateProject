@@ -10,8 +10,11 @@ program generate_random_matrix
     call random_number(random_matrix)
     random_matrix = 100 * random_matrix
 
-    open(20, file = 'matrix.dat', status = 'replace')
-    write(20, *) (random_matrix(i, :), i = 1, n)
+    open(20, file = 'matrix', access = 'direct', &
+    &  form = 'unformatted', recl = 4 * n)
+    do i = 1, n
+        write(20, rec = i) random_matrix(i, :)
+    end do
     close(20)
 
 end program generate_random_matrix

@@ -1,3 +1,10 @@
+!******************************************************************************
+!
+!  parallel_version.f90
+!  并行矩阵向量乘法，基于一维行划分方法进行并行化
+!  
+!******************************************************************************
+
 program parallel_Mat_mul_Vec
 
     use mpi
@@ -5,18 +12,72 @@ program parallel_Mat_mul_Vec
 
     integer, parameter :: N = 1024
     integer :: IERR, NPROC, STATUS(MPI_STATUS_SIZE)
-    integer :: myrank, myfile, buf_size
-    real(4), allocatable :: matrix_buf(:, :), vector_buf(:) 
+    integer :: myrank, myleft, myritht, myfile, buf_size
+    real(4), allocatable :: matrix_buf(:, :), vector_buf(:, :)
+    real(4), allocatable :: matrix(:, :), vector(:, :), answer(:, :) 
 
     call mpi_init(IERR)
     call mpi_comm_rank(MPI_COMM_WORLD, myrank, IERR)
     call mpi_comm_size(MPI_COMM_WORLD, NPROC, IERR)
     
     buf_size = N / NPROC
-    ! read matrix
-    call mpi_file_open(MPI_COMM_WORLD,"matrix",MPI_MODE_RDONLY &
+    allocate(matrix_buf(N, buf_size)) ! Fortran的矩阵存储方式为列存储，需要
+                                      ! 进行一次转置，因此设置读取缓冲空间
+    allocate(vector_buf(buf_size,1)) ! 接收其它进程储存的向量所需要的缓存空间
+    allocate(matrix(buf_size, N))
+    allocate(vector(buf_size, 1))
+    allocate(answer(N, 1))
+
+    ! 读取矩阵
+    call mpi_file_open(MPI_COMM_WORLD, "matrix", MPI_MODE_RDONLY, &
     &  MPI_INFO_NULL, myfile, IERR)
-    call mpi_file_seek(myfile, myrank*)
+    call mpi_file_seek(myfile, myrank*N*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, &
+    &  IERR)
+    call mpi_file_read(myfile, matrix_buf, N*buf_size, MPI_REAL, &
+    &  STATUS, IERR)
+    call mpi_file_close(myfile, IERR)
+    matrix = transpose(matrix_buf)
+
+    ! 读取向量
+    call mpi_file_open(MPI_COMM_WORLD, "vector", MPI_MODE_RDONLY, &
+    &  MPI_INFO_NULL, myfile, IERR)
+    call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, &
+    &  IERR)
+    call mpi_file_read(myfile, vector, buf_size, MPI_REAL, &
+    &  STATUS, IERR)
+    call mpi_file_close(myfile, IERR)
+
+    call mpi_send()
+    
+    deallocate(matrix_buf)
+    deallocate(vector_buf)
+    deallocate(matrix)
+    deallocate(vector)
+    deallocate(answer)
     call mpi_finalize(IERR)
 
 end program parallel_Mat_mul_Vec
+
+
+!-------------------子程序和函数部分-------------------------------------------
+
+integer function my_left(myrank, nproc) result(ans)
+
+    implicit none 
+    integer, intent(in) :: myrank, nproc
+    
+    ans = myrank - 1
+    if (0 == myrank) ans = nproc
+
+end function my_left
+
+
+integer function my_right(myrank, nproc) result(ans)
+
+    implicit none 
+    integer, intent(in) :: myrank, nproc
+    
+    ans = myrank + 1
+    if (nproc == myrank) ans = 0
+
+end function my_right

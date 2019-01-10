@@ -1,6 +1,6 @@
 !******************************************************************************
 !
-!  parallel_version.f90
+!  matrix_mul_vector_parallel.f90
 !  并行矩阵向量乘法，基于一维行划分方法进行并行化
 !  
 !******************************************************************************
@@ -11,8 +11,8 @@ program parallel_Mat_mul_Vec
     implicit none
 
     integer, parameter :: N = 1024
-    integer :: IERR, NPROC, STATUS(MPI_STATUS_SIZE)
-    integer :: myrank, myleft, myritht, myfile, buf_size
+    integer :: IERR, NPROC, STATUS(MPI_STATUS_SIZE), NSTATUS
+    integer :: myrank, myleft, myritht, myfile, buf_size, cnt
     real(4), allocatable :: matrix_buf(:, :), vector_buf(:, :)
     real(4), allocatable :: matrix(:, :), vector(:, :), answer(:, :) 
 
@@ -47,8 +47,34 @@ program parallel_Mat_mul_Vec
     &  STATUS, IERR)
     call mpi_file_close(myfile, IERR)
 
-    call mpi_send()
-    
+	answer = 0
+	deallocate(matrix_buf) ! 释放矩阵缓存空间用于储存每一次计算时的矩阵块
+	allocate(matrix_buf(buf_size,buf_size))
+	! 循环进程中储存的所有矩阵块
+	do cnt = 0, NPROC
+		! 计算对应矩阵块与向量的乘积
+		matrix_buf = matrix(:, mod(myrank+cnt, NPROC)*buf_size+1:(mod(myrank+cnt, NPROC) &
+		&  +1)*buf_size)
+		answer(myrank*buf_size+1:(myrank+1)*buf_size, :) = matmul(matrix_buf,vector) &
+		&  + answer(myrank*buf_size+1:(myrank+1)*buf_size, :)
+		! 进行一次向量块的传递(向上)
+		call mpi_send(vector, buf_size, MPI_REAL, my_left(myrank, NPROC), myrank, &
+		&  MPI_COMM_WORLD, IERR)
+		call mpi_recv(vector_buf, buf_size, MPI_REAL, my_right(myrank, NPROC), myrank, &
+		& NSTATUS, MPI_COMM_WORLD, IERR)
+		vector = vector_buf
+    end do
+	
+	! 全规约结果向量，并行输出到文件
+	call mpi_allreducee(answer, answer, N, MPI_REAL, MPI_SUM, MPI_COMM_WORLD, IERR)
+	call mpi_file_open(MPI_COMM_WORLD, "answer", MPI_MODE_CREATE+MPI_MODE_WRONLY, &
+	&  MPI_INFO_NULL, myfile, IERR)
+	call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, &
+	&  IERR)
+	call mpi_file_write(myfile, answer(myrank*buf_size+1, 1), buf_size, MPI_REAL &
+	&  STATUS, IERR)
+	call mpi_file_close(myfile, IERR)
+	
     deallocate(matrix_buf)
     deallocate(vector_buf)
     deallocate(matrix)
@@ -67,7 +93,7 @@ integer function my_left(myrank, nproc) result(ans)
     integer, intent(in) :: myrank, nproc
     
     ans = myrank - 1
-    if (0 == myrank) ans = nproc
+    if (0 == myrank) ans = nproc - 1
 
 end function my_left
 
@@ -78,6 +104,6 @@ integer function my_right(myrank, nproc) result(ans)
     integer, intent(in) :: myrank, nproc
     
     ans = myrank + 1
-    if (nproc == myrank) ans = 0
+    if (nproc-1 == myrank) ans = 0
 
 end function my_right

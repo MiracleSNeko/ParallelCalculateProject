@@ -11,7 +11,8 @@ program parallel_Mat_mul_Vec
     implicit none
 
     integer, parameter :: N = 1024
-    integer :: IERR, NPROC, STATUS(MPI_STATUS_SIZE), NSTATUS
+    integer :: my_left, my_right
+    integer :: IERR, NPROC, STATUS(MPI_STATUS_SIZE), NSTATUS, ISREQ, IRREQ
     integer :: myrank, myleft, myritht, myfile, buf_size, cnt
     real(4), allocatable :: matrix_buf(:, :), vector_buf(:, :)
     real(4), allocatable :: matrix(:, :), vector(:, :), answer(:, :) 
@@ -49,7 +50,7 @@ program parallel_Mat_mul_Vec
 
     answer = 0
     deallocate(matrix_buf) ! 释放矩阵缓存空间用于储存每一次计算时的矩阵块
-    allocate(matrix_buf(buf_size,buf_size))
+    allocate(matrix_buf(buf_size, buf_size))
     ! 循环进程中储存的所有矩阵块
     do cnt = 0, NPROC
         ! 计算对应矩阵块与向量的乘积
@@ -60,19 +61,22 @@ program parallel_Mat_mul_Vec
         ! 进行一次向量块的传递(向上)
         call mpi_send(vector, buf_size, MPI_REAL, my_left(myrank, NPROC), myrank, &
         &  MPI_COMM_WORLD, IERR)
-        call mpi_recv(vector_buf, buf_size, MPI_REAL, my_right(myrank, NPROC), myrank, &
-        & NSTATUS, MPI_COMM_WORLD, IERR)
+        ! call mpi_wait(ISREQ, NSTATUS, IERR)
+        call mpi_recv(vector_buf, buf_size, MPI_REAL, my_right(myrank, NPROC), &
+        & my_right(myrank, NPROC), NSTATUS, MPI_COMM_WORLD, IERR)
+        ! call mpi_wait(IRREQ, NSTATUS, IERR)
         vector = vector_buf
+        ! write(*, *) "rank:", myrank, "cnt:", cnt
     end do
 	
     ! 全规约结果向量，并行输出到文件
-    call mpi_allreducee(answer, answer, N, MPI_REAL, MPI_SUM, MPI_COMM_WORLD, IERR)
+    call mpi_allreduce(answer, answer, N, MPI_REAL, MPI_SUM, MPI_COMM_WORLD, IERR)
     call mpi_file_open(MPI_COMM_WORLD, "answer", MPI_MODE_CREATE+MPI_MODE_WRONLY, &
     &  MPI_INFO_NULL, myfile, IERR)
     call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, &
     &  IERR)
-    call mpi_file_write(myfile, answer(myrank*buf_size+1, 1), buf_size, MPI_REAL &
-    &  STATUS, IERR)
+    call mpi_file_write(myfile, answer(myrank*buf_size+1, 1), buf_size, MPI_REAL, &
+    &  MPI_STATUS_IGNORE, IERR)
     call mpi_file_close(myfile, IERR)
 	
     deallocate(matrix_buf)

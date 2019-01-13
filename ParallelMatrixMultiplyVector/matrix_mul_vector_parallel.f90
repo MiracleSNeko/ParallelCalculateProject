@@ -11,6 +11,7 @@ program parallel_Mat_mul_Vec
     implicit none
 
     integer, parameter :: N = 1024
+	character :: c
     integer :: my_left, my_right
     integer :: IERR, NPROC, STATUS(MPI_STATUS_SIZE), NSTATUS, ISREQ, IRREQ
     integer :: myrank, myleft, myritht, myfile, buf_size, cnt
@@ -20,8 +21,13 @@ program parallel_Mat_mul_Vec
     call mpi_init(IERR)
     call mpi_comm_rank(MPI_COMM_WORLD, myrank, IERR)
     call mpi_comm_size(MPI_COMM_WORLD, NPROC, IERR)
+	
+	write(*, *) NPROC
     
     buf_size = N / NPROC
+	write(*, *) buf_size
+	read(*, *) c
+	
     allocate(matrix_buf(N, buf_size)) ! Fortran的矩阵存储方式为列存储，需要
                                       ! 进行一次转置，因此设置读取缓冲空间
     allocate(vector_buf(buf_size,1)) ! 接收其它进程储存的向量所需要的缓存空间
@@ -63,7 +69,7 @@ program parallel_Mat_mul_Vec
         &  MPI_COMM_WORLD, IERR)
         ! call mpi_wait(ISREQ, NSTATUS, IERR)
         call mpi_recv(vector_buf, buf_size, MPI_REAL, my_right(myrank, NPROC), &
-        & my_right(myrank, NPROC), NSTATUS, MPI_COMM_WORLD, IERR)
+        & my_right(myrank, NPROC), MPI_COMM_WORLD, NSTATUS, IERR)
         ! call mpi_wait(IRREQ, NSTATUS, IERR)
         vector = vector_buf
         ! write(*, *) "rank:", myrank, "cnt:", cnt

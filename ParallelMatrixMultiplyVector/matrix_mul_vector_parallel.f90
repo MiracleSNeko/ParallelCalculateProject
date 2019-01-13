@@ -11,22 +11,20 @@ program parallel_Mat_mul_Vec
     implicit none
 
     integer, parameter :: N = 1024
-	character :: c
+	character :: debug
     integer :: my_left, my_right
     integer :: IERR, NPROC, STATUS(MPI_STATUS_SIZE), NSTATUS, ISREQ, IRREQ
-    integer :: myrank, myleft, myritht, myfile, buf_size, cnt
+    integer :: myrank, myleft, myright, myfile, buf_size, cnt
     real(4), allocatable :: matrix_buf(:, :), vector_buf(:, :)
     real(4), allocatable :: matrix(:, :), vector(:, :), answer(:, :) 
 
     call mpi_init(IERR)
     call mpi_comm_rank(MPI_COMM_WORLD, myrank, IERR)
     call mpi_comm_size(MPI_COMM_WORLD, NPROC, IERR)
-	
-	write(*, *) NPROC
-    
+	   
     buf_size = N / NPROC
-	write(*, *) buf_size
-	read(*, *) c
+	myleft = my_left(myrank, NPROC)
+	myright = my_right(myrank, NPROC)
 	
     allocate(matrix_buf(N, buf_size)) ! Fortran的矩阵存储方式为列存储，需要
                                       ! 进行一次转置，因此设置读取缓冲空间
@@ -59,18 +57,22 @@ program parallel_Mat_mul_Vec
     allocate(matrix_buf(buf_size, buf_size))
     ! 循环进程中储存的所有矩阵块
     do cnt = 0, NPROC
+		write(*, *) "rank", myrank, "line 60", "cnt", cnt
         ! 计算对应矩阵块与向量的乘积
         matrix_buf = matrix(:, mod(myrank+cnt, NPROC)*buf_size+1:(mod(myrank+cnt, NPROC) &
         &  +1)*buf_size)
+		write(*, *) "rank", myrank, "line 64", "cnt", cnt
         answer(myrank*buf_size+1:(myrank+1)*buf_size, :) = matmul(matrix_buf,vector) &
         &  + answer(myrank*buf_size+1:(myrank+1)*buf_size, :)
         ! 进行一次向量块的传递(向上)
-        call mpi_send(vector, buf_size, MPI_REAL, my_left(myrank, NPROC), myrank, &
-        &  MPI_COMM_WORLD, IERR)
+		write(*, *) "rank", myrank, "line 68", "cnt", cnt
+        call mpi_send(vector, buf_size, MPI_REAL, myleft, myrank, MPI_COMM_WORLD, IERR)
         ! call mpi_wait(ISREQ, NSTATUS, IERR)
-        call mpi_recv(vector_buf, buf_size, MPI_REAL, my_right(myrank, NPROC), &
-        & my_right(myrank, NPROC), MPI_COMM_WORLD, NSTATUS, IERR)
+		write(*, *) "rank", myrank, "line 71", "cnt", cnt
+        call mpi_recv(vector_buf, buf_size, MPI_REAL, myright, myright, &
+		&  MPI_COMM_WORLD, NSTATUS, IERR)
         ! call mpi_wait(IRREQ, NSTATUS, IERR)
+		write(*, *) "rank", myrank, "line 75", "cnt", cnt
         vector = vector_buf
         ! write(*, *) "rank:", myrank, "cnt:", cnt
     end do

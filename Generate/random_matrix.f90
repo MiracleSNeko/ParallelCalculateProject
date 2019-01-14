@@ -4,7 +4,7 @@ program generate_random_matrix
 
     ! character :: s
     integer :: i, j, k
-    integer, parameter :: n = 1024
+    integer, parameter :: n = 2048
     real(4), dimension(n, n) :: random_matrix
     call random_seed()
     call random_number(random_matrix)

@@ -10,14 +10,16 @@ program parallel_Mat_mul_Vec
     use mpi
     implicit none
 
-    integer, parameter :: N = 1024
-	character :: debug
+    integer, parameter :: N = 2048
     integer :: my_left, my_right
-    integer :: IERR, NPROC, STATUS(MPI_STATUS_SIZE), NSTATUS, ISREQ, IRREQ
+    integer :: IERR, NPROC, NSTATUS(MPI_STATUS_SIZE)
     integer :: myrank, myleft, myright, myfile, buf_size, cnt
+	real(4) :: startwtime, endwtime
     real(4), allocatable :: matrix_buf(:, :), vector_buf(:, :)
-    real(4), allocatable :: matrix(:, :), vector(:, :), answer(:, :) 
-
+    real(4), allocatable :: matrix(:, :), vector(:, :), answer(:, :), answer_buf(:, :) 
+	
+	call cpu_time(startwtime)
+	
     call mpi_init(IERR)
     call mpi_comm_rank(MPI_COMM_WORLD, myrank, IERR)
     call mpi_comm_size(MPI_COMM_WORLD, NPROC, IERR)
@@ -32,24 +34,25 @@ program parallel_Mat_mul_Vec
     allocate(matrix(buf_size, N))
     allocate(vector(buf_size, 1))
     allocate(answer(N, 1))
+	allocate(answer_buf(N, 1))
 
     ! 读取矩阵
     call mpi_file_open(MPI_COMM_WORLD, "matrix", MPI_MODE_RDONLY, &
     &  MPI_INFO_NULL, myfile, IERR)
-    call mpi_file_seek(myfile, myrank*N*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, &
-    &  IERR)
+    call mpi_file_seek(myfile, myrank*N*buf_size*sizeof(MPI_REAL), & 
+	&  MPI_SEEK_SET, IERR)
     call mpi_file_read(myfile, matrix_buf, N*buf_size, MPI_REAL, &
-    &  STATUS, IERR)
+    &  NSTATUS, IERR)
     call mpi_file_close(myfile, IERR)
     matrix = transpose(matrix_buf)
 
     ! 读取向量
     call mpi_file_open(MPI_COMM_WORLD, "vector", MPI_MODE_RDONLY, &
     &  MPI_INFO_NULL, myfile, IERR)
-    call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, &
-    &  IERR)
+    call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), &
+	&  MPI_SEEK_SET, IERR)
     call mpi_file_read(myfile, vector, buf_size, MPI_REAL, &
-    &  STATUS, IERR)
+    &  NSTATUS, IERR)
     call mpi_file_close(myfile, IERR)
 
     answer = 0
@@ -57,41 +60,38 @@ program parallel_Mat_mul_Vec
     allocate(matrix_buf(buf_size, buf_size))
     ! 循环进程中储存的所有矩阵块
     do cnt = 0, NPROC
-		write(*, *) "rank", myrank, "line 60", "cnt", cnt
         ! 计算对应矩阵块与向量的乘积
         matrix_buf = matrix(:, mod(myrank+cnt, NPROC)*buf_size+1:(mod(myrank+cnt, NPROC) &
         &  +1)*buf_size)
-		write(*, *) "rank", myrank, "line 64", "cnt", cnt
         answer(myrank*buf_size+1:(myrank+1)*buf_size, :) = matmul(matrix_buf,vector) &
         &  + answer(myrank*buf_size+1:(myrank+1)*buf_size, :)
         ! 进行一次向量块的传递(向上)
-		write(*, *) "rank", myrank, "line 68", "cnt", cnt
-        call mpi_send(vector, buf_size, MPI_REAL, myleft, myrank, MPI_COMM_WORLD, IERR)
-        ! call mpi_wait(ISREQ, NSTATUS, IERR)
-		write(*, *) "rank", myrank, "line 71", "cnt", cnt
+        call mpi_send(vector, buf_size, MPI_REAL, myleft, myrank, & 
+        &  MPI_COMM_WORLD, IERR)
         call mpi_recv(vector_buf, buf_size, MPI_REAL, myright, myright, &
 		&  MPI_COMM_WORLD, NSTATUS, IERR)
-        ! call mpi_wait(IRREQ, NSTATUS, IERR)
-		write(*, *) "rank", myrank, "line 75", "cnt", cnt
         vector = vector_buf
-        ! write(*, *) "rank:", myrank, "cnt:", cnt
     end do
 	
     ! 全规约结果向量，并行输出到文件
-    call mpi_allreduce(answer, answer, N, MPI_REAL, MPI_SUM, MPI_COMM_WORLD, IERR)
+    call mpi_allreduce(answer, answer_buf, N, MPI_REAL, MPI_SUM, MPI_COMM_WORLD, IERR)
     call mpi_file_open(MPI_COMM_WORLD, "answer", MPI_MODE_CREATE+MPI_MODE_WRONLY, &
     &  MPI_INFO_NULL, myfile, IERR)
     call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, &
     &  IERR)
-    call mpi_file_write(myfile, answer(myrank*buf_size+1, 1), buf_size, MPI_REAL, &
+    call mpi_file_write(myfile, answer_buf(myrank*buf_size+1, 1), buf_size, MPI_REAL, &
     &  MPI_STATUS_IGNORE, IERR)
     call mpi_file_close(myfile, IERR)
+	
+	call cpu_time(endwtime)
+	write(*, *) "process", myrank, ":", 1000 * (endwtime - startwtime), "ms"
 	
     deallocate(matrix_buf)
     deallocate(vector_buf)
     deallocate(matrix)
     deallocate(vector)
     deallocate(answer)
+	deallocate(answer_buf)
     call mpi_finalize(IERR)
 
 end program parallel_Mat_mul_Vec

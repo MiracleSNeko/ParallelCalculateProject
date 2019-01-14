@@ -14,33 +14,33 @@ program parallel_Mat_mul_Vec
     integer :: my_left, my_right
     integer :: IERR, NPROC, NSTATUS(MPI_STATUS_SIZE)
     integer :: myrank, myleft, myright, myfile, buf_size, cnt
-	real(4) :: startwtime, endwtime
+    real(4) :: startwtime, endwtime
     real(4), allocatable :: matrix_buf(:, :), vector_buf(:, :)
     real(4), allocatable :: matrix(:, :), vector(:, :), answer(:, :), answer_buf(:, :) 
 	
-	call cpu_time(startwtime)
+    call cpu_time(startwtime)
 	
     call mpi_init(IERR)
     call mpi_comm_rank(MPI_COMM_WORLD, myrank, IERR)
     call mpi_comm_size(MPI_COMM_WORLD, NPROC, IERR)
 	   
     buf_size = N / NPROC
-	myleft = my_left(myrank, NPROC)
-	myright = my_right(myrank, NPROC)
+    myleft = my_left(myrank, NPROC)
+    myright = my_right(myrank, NPROC)
 	
     allocate(matrix_buf(N, buf_size)) ! Fortran的矩阵存储方式为列存储，需要
-                                      ! 进行一次转置，因此设置读取缓冲空间
+                                      	! 进行一次转置，因此设置读取缓冲空间
     allocate(vector_buf(buf_size,1)) ! 接收其它进程储存的向量所需要的缓存空间
     allocate(matrix(buf_size, N))
     allocate(vector(buf_size, 1))
     allocate(answer(N, 1))
-	allocate(answer_buf(N, 1))
+    allocate(answer_buf(N, 1))
 
     ! 读取矩阵
     call mpi_file_open(MPI_COMM_WORLD, "matrix", MPI_MODE_RDONLY, &
     &  MPI_INFO_NULL, myfile, IERR)
     call mpi_file_seek(myfile, myrank*N*buf_size*sizeof(MPI_REAL), & 
-	&  MPI_SEEK_SET, IERR)
+    &  MPI_SEEK_SET, IERR)
     call mpi_file_read(myfile, matrix_buf, N*buf_size, MPI_REAL, &
     &  NSTATUS, IERR)
     call mpi_file_close(myfile, IERR)
@@ -50,7 +50,7 @@ program parallel_Mat_mul_Vec
     call mpi_file_open(MPI_COMM_WORLD, "vector", MPI_MODE_RDONLY, &
     &  MPI_INFO_NULL, myfile, IERR)
     call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), &
-	&  MPI_SEEK_SET, IERR)
+    &  MPI_SEEK_SET, IERR)
     call mpi_file_read(myfile, vector, buf_size, MPI_REAL, &
     &  NSTATUS, IERR)
     call mpi_file_close(myfile, IERR)
@@ -69,7 +69,7 @@ program parallel_Mat_mul_Vec
         call mpi_send(vector, buf_size, MPI_REAL, myleft, myrank, & 
         &  MPI_COMM_WORLD, IERR)
         call mpi_recv(vector_buf, buf_size, MPI_REAL, myright, myright, &
-		&  MPI_COMM_WORLD, NSTATUS, IERR)
+        &  MPI_COMM_WORLD, NSTATUS, IERR)
         vector = vector_buf
     end do
 	
@@ -83,15 +83,15 @@ program parallel_Mat_mul_Vec
     &  MPI_STATUS_IGNORE, IERR)
     call mpi_file_close(myfile, IERR)
 	
-	call cpu_time(endwtime)
-	write(*, *) "process", myrank, ":", 1000 * (endwtime - startwtime), "ms"
+    call cpu_time(endwtime)
+    write(*, *) "process", myrank, ":", 1000 * (endwtime - startwtime), "ms"
 	
     deallocate(matrix_buf)
     deallocate(vector_buf)
     deallocate(matrix)
     deallocate(vector)
     deallocate(answer)
-	deallocate(answer_buf)
+    deallocate(answer_buf)
     call mpi_finalize(IERR)
 
 end program parallel_Mat_mul_Vec

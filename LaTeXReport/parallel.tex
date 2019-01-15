@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[UTF8]{ctex}
+\usepackage[width=16cm]{geometry}
+\pagestyle{empty}
+
+\begin{document}
+\setlength{\fboxsep}{0.3pt}
+\lstset{language={[90]Fortran},
+         extendedchars=false,
+        lineskip=-1pt,
+         basicstyle=\tt\tiny\color{black},
+         %commentstyle=\rm\color{green!30!black},
+        keywordstyle=\bf,
+         %stringstyle=\color{red},
+         showstringspaces=true,
+         %identifierstyle=\color{blue},
+         numberstyle=\color{magenta},
+         texcl=false,  % 为true时，注释内容被当做LaTeX代码来处理，因而需要做相应修改： 
+                      % _ => \_, ^ => \^{}, < => $<$, > => $>$, % => \% 等
+         emph={
+                Init_Matrices, Deallocate_Matrices, Init_Spin_Operators, Init_crossPos_EGaps, Get_Energy_gaps, Get_pLZ,
+               myzheev, B0mmp, FindBmmp_v2, EneRightOrder , InitSpinPos_b, cgama, ArgGamma, outputEG, InitSpinRelations,
+                DeallocateSpinList, InitInteractions, updateSpinList, sortSpinList, myseed, rand16807, reset16807,
+              gaussSample, mydate, seconds_from_1970, walltime, timestring, hostname
+              },
+         numbers=left,
+         frame=single
+        %frame=shadowbox, rulesepcolor=\color{blue}
+         }
+ \lstinputlisting{matrix_mul_vector_parallel.f90}
+\end{document}

@@ -80,7 +80,7 @@ program parallel_Mat_mul_Vec
 	
     call cpu_time(endwtime)
     ! 将各进程的运行时间记录到文件中
-    wtime = endwtime - startwtime
+    wtime = (endwtime - startwtime) * 1000
     call mpi_file_open(MPI_COMM_WORLD, "walltime", MPI_MODE_CREATE+MPI_MODE_WRONLY, &
     &  MPI_INFO_NULL, myfile, IERR)
     call mpi_file_seek(myfile, myrank*sizeof(MPI_REAL), MPI_SEEK_SET, IERR)

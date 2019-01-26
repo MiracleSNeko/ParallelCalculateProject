@@ -40,6 +40,8 @@ program serial_Mat_mul_Vec
     end do
     
     call cpu_time(endwtime)
-    write(*, *) "walltime", ":", 1000 * (endwtime - startwtime), "ms"
+    open(40, file = 'wtime')
+    write(40, *) endwtime - startwtime
+    close(40)
 
 end program serial_Mat_mul_Vec

@@ -1,7 +1,7 @@
-ï»¿!******************************************************************************
+!******************************************************************************
 !
 !  matrix_mul_vector_parallel.f90
-!  å¹¶è¡ŒçŸ©é˜µå‘é‡ä¹˜æ³•ï¼ŒåŸºäºä¸€ç»´è¡Œåˆ’åˆ†æ–¹æ³•è¿›è¡Œå¹¶è¡ŒåŒ–
+!  ²¢ĞĞ¾ØÕóÏòÁ¿³Ë·¨£¬»ùÓÚÒÔÎªĞĞ»®·Ö·½·¨½øĞĞ²¢ĞĞ»¯
 !  
 !******************************************************************************
 
@@ -14,7 +14,7 @@ program parallel_Mat_mul_Vec
     integer :: my_left, my_right
     integer :: IERR, NPROC, NSTATUS(MPI_STATUS_SIZE)
     integer :: myrank, myleft, myright, myfile, buf_size, cnt
-    real(4) :: startwtime, endwtime
+    real(4) :: startwtime, endwtime, wtime
     real(4), allocatable :: matrix_buf(:, :), vector_buf(:, :)
     real(4), allocatable :: matrix(:, :), vector(:, :), answer(:, :), answer_buf(:, :) 
 	
@@ -28,63 +28,64 @@ program parallel_Mat_mul_Vec
     myleft = my_left(myrank, NPROC)
     myright = my_right(myrank, NPROC)
 	
-    allocate(matrix_buf(N, buf_size)) ! Fortrançš„çŸ©é˜µå­˜å‚¨æ–¹å¼ä¸ºåˆ—å­˜å‚¨ï¼Œéœ€è¦
-                                      ! è¿›è¡Œä¸€æ¬¡è½¬ç½®ï¼Œå› æ­¤è®¾ç½®è¯»å–ç¼“å†²ç©ºé—´
-    allocate(vector_buf(buf_size,1)) ! æ¥æ”¶å…¶å®ƒè¿›ç¨‹å‚¨å­˜çš„å‘é‡æ‰€éœ€è¦çš„ç¼“å­˜ç©ºé—´
+    allocate(matrix_buf(N, buf_size)) ! FortranµÄ¾ØÕó´¢´æ·½Ê½ÎªÁĞ´¢´æ£¬ĞèÒª
+                                      ! ½øĞĞÒ»´Î×ªÖÃ£¬Òò´ËÉèÖÃ¶ÁÈ¡»º´æ¿Õ¼ä
+    allocate(vector_buf(buf_size,1)) ! ½ÓÊÕÆäËû½ø³Ì´¢´æµÄÏòÁ¿ËùĞèÒªµÄ»º´æ¿Õ¼ä
     allocate(matrix(buf_size, N))
     allocate(vector(buf_size, 1))
     allocate(answer(N, 1))
     allocate(answer_buf(N, 1))
 
-    ! è¯»å–çŸ©é˜µ
-    call mpi_file_open(MPI_COMM_WORLD, "matrix", MPI_MODE_RDONLY, &
-    &  MPI_INFO_NULL, myfile, IERR)
-    call mpi_file_seek(myfile, myrank*N*buf_size*sizeof(MPI_REAL), & 
-    &  MPI_SEEK_SET, IERR)
-    call mpi_file_read(myfile, matrix_buf, N*buf_size, MPI_REAL, &
-    &  NSTATUS, IERR)
+    ! ¶ÁÈ¡¾ØÕó
+    call mpi_file_open(MPI_COMM_WORLD, "matrix", MPI_MODE_RDONLY, MPI_INFO_NULL, &
+    &  myfile, IERR)
+    call mpi_file_seek(myfile, myrank*N*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, &
+    &  IERR)
+    call mpi_file_read(myfile, matrix_buf, N*buf_size, MPI_REAL, NSTATUS, IERR)
     call mpi_file_close(myfile, IERR)
     matrix = transpose(matrix_buf)
 
-    ! è¯»å–å‘é‡
-    call mpi_file_open(MPI_COMM_WORLD, "vector", MPI_MODE_RDONLY, &
-    &  MPI_INFO_NULL, myfile, IERR)
-    call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), &
-    &  MPI_SEEK_SET, IERR)
-    call mpi_file_read(myfile, vector, buf_size, MPI_REAL, &
-    &  NSTATUS, IERR)
+    ! ¶ÁÈ¡ÏòÁ¿
+    call mpi_file_open(MPI_COMM_WORLD, "vector", MPI_MODE_RDONLY, MPI_INFO_NULL, &
+    &  myfile, IERR)
+    call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, IERR)
+    call mpi_file_read(myfile, vector, buf_size, MPI_REAL, NSTATUS, IERR)
     call mpi_file_close(myfile, IERR)
 
     answer = 0
-    deallocate(matrix_buf) ! é‡Šæ”¾çŸ©é˜µç¼“å­˜ç©ºé—´ç”¨äºå‚¨å­˜æ¯ä¸€æ¬¡è®¡ç®—æ—¶çš„çŸ©é˜µå—
+    deallocate(matrix_buf) ! ÊÍ·Å¾ØÕó»º´æ¿Õ¼äÓÃÓÚ´¢´æÃ¿Ò»´Î¼ÆËãÊ±µÄ¾ØÕó¿é
     allocate(matrix_buf(buf_size, buf_size))
-    ! å¾ªç¯è¿›ç¨‹ä¸­å‚¨å­˜çš„æ‰€æœ‰çŸ©é˜µå—
+    ! Ñ­»·½ø³ÌÖĞ´¢´æµÄËùÓĞ¾ØÕó¿é
     do cnt = 0, NPROC
-        ! è®¡ç®—å¯¹åº”çŸ©é˜µå—ä¸å‘é‡çš„ä¹˜ç§¯
+        ! ¼ÆËã¶ÔÓ¦¾ØÕó¿éÓëÏòÁ¿µÄ³Ë»ı
         matrix_buf = matrix(:, mod(myrank+cnt, NPROC)*buf_size+1:(mod(myrank+cnt, NPROC) &
         &  +1)*buf_size)
         answer(myrank*buf_size+1:(myrank+1)*buf_size, :) = matmul(matrix_buf,vector) &
         &  + answer(myrank*buf_size+1:(myrank+1)*buf_size, :)
-        ! è¿›è¡Œä¸€æ¬¡å‘é‡å—çš„ä¼ é€’(å‘ä¸Š)
-        call mpi_send(vector, buf_size, MPI_REAL, myleft, myrank, & 
-        &  MPI_COMM_WORLD, IERR)
+        ! ½øĞĞÒ»´ÎÏòÁ¿¿éµÄ´«µİ(ÏòÉÏ)
+        call mpi_send(vector, buf_size, MPI_REAL, myleft, myrank, MPI_COMM_WORLD, IERR)
         call mpi_recv(vector_buf, buf_size, MPI_REAL, myright, myright, &
         &  MPI_COMM_WORLD, NSTATUS, IERR)
         vector = vector_buf
     end do
 	
-    ! å…¨è§„çº¦ç»“æœå‘é‡ï¼Œå¹¶è¡Œè¾“å‡ºåˆ°æ–‡ä»¶
+    ! È«¹æÔ¼½á¹ûÏòÁ¿£¬²¢ĞĞÊä³öµ½ÎÄ¼ş
     call mpi_allreduce(answer, answer_buf, N, MPI_REAL, MPI_SUM, MPI_COMM_WORLD, IERR)
     call mpi_file_open(MPI_COMM_WORLD, "answer", MPI_MODE_CREATE+MPI_MODE_WRONLY, &
     &  MPI_INFO_NULL, myfile, IERR)
-    call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, &
-    &  IERR)
+    call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, IERR)
     call mpi_file_write(myfile, answer_buf(myrank*buf_size+1, 1), buf_size, MPI_REAL, &
     &  MPI_STATUS_IGNORE, IERR)
     call mpi_file_close(myfile, IERR)
 	
     call cpu_time(endwtime)
-    write(*, *) "process", myrank, ":", 1000 * (endwtime - startwtime), "ms"
+    ! ½«¸÷½ø³ÌµÄÔËĞĞÊ±¼ä¼ÇÂ¼µ½ÎÄ¼şÖĞ
+    wtime = endwtime - startwtime
+    call mpi_file_open(MPI_COMM_WORLD, "walltime", MPI_MODE_CREATE+MPI_MODE_WRONLY, &
+    &  MPI_INFO_NULL, myfile, IERR)
+    call mpi_file_seek(myfile, myrank*sizeof(MPI_REAL), MPI_SEEK_SET, IERR)
+    call mpi_file_write(myfile, wtime, 1, MPI_REAL, MPI_STATUS_IGNORE, IERR)
+    call mpi_file_close(myfile, IERR)
 	
     deallocate(matrix_buf)
     deallocate(vector_buf)
@@ -97,7 +98,7 @@ program parallel_Mat_mul_Vec
 end program parallel_Mat_mul_Vec
 
 
-!-------------------å­ç¨‹åºå’Œå‡½æ•°éƒ¨åˆ†-------------------------------------------
+!-------------------×Ó³ÌĞòÓëº¯Êı²¿·Ö-------------------------------------------
 
 integer function my_left(myrank, nproc) result(ans)
 

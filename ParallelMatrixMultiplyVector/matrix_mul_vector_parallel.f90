@@ -29,7 +29,7 @@ program parallel_Mat_mul_Vec
     myright = my_right(myrank, NPROC)
 	
     allocate(matrix_buf(N, buf_size)) ! Fortran的矩阵存储方式为列存储，需要
-                                        ! 进行一次转置，因此设置读取缓冲空间
+                                      ! 进行一次转置，因此设置读取缓冲空间
     allocate(vector_buf(buf_size,1)) ! 接收其它进程储存的向量所需要的缓存空间
     allocate(matrix(buf_size, N))
     allocate(vector(buf_size, 1))

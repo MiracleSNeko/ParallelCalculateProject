@@ -15,8 +15,9 @@ program parallel_Mat_mul_Vec
     integer :: IERR, NPROC, NSTATUS(MPI_STATUS_SIZE)
     integer :: myrank, myleft, myright, myfile, buf_size, cnt
     real(4) :: startwtime, endwtime, wtime
-    real(4), allocatable :: matrix_buf(:, :), vector_buf(:, :)
-    real(4), allocatable :: matrix(:, :), vector(:, :), answer(:, :), answer_buf(:, :) 
+    real(4), allocatable :: matrix(:, :), vector(:, :), answer(:, :) 
+    real(4), allocatable :: matrix_buf(:, :), vector_buf(:, :), answer_buf(:, :)
+    character(len = 2) :: sTemp
 	
     call cpu_time(startwtime)
 	
@@ -78,20 +79,21 @@ program parallel_Mat_mul_Vec
     &  MPI_STATUS_IGNORE, IERR)
     call mpi_file_close(myfile, IERR)
 	
-    call cpu_time(endwtime)
     ! 将各进程的运行时间记录到文件中
+    call cpu_time(endwtime)
     wtime = (endwtime - startwtime) * 1000
-    call mpi_file_open(MPI_COMM_WORLD, "walltime", MPI_MODE_CREATE+MPI_MODE_WRONLY, &
-    &  MPI_INFO_NULL, myfile, IERR)
+    write(sTemp, '(i2)') NPROC  
+    call mpi_file_open(MPI_COMM_WORLD, "walltime"//trim(adjustl(sTemp)), MPI_MODE_CREATE &
+    &  +MPI_MODE_WRONLY, MPI_INFO_NULL, myfile, IERR)
     call mpi_file_seek(myfile, myrank*sizeof(MPI_REAL), MPI_SEEK_SET, IERR)
     call mpi_file_write(myfile, wtime, 1, MPI_REAL, MPI_STATUS_IGNORE, IERR)
     call mpi_file_close(myfile, IERR)
 	
-    deallocate(matrix_buf)
-    deallocate(vector_buf)
     deallocate(matrix)
     deallocate(vector)
     deallocate(answer)
+    deallocate(matrix_buf)
+    deallocate(vector_buf)
     deallocate(answer_buf)
     call mpi_finalize(IERR)
 

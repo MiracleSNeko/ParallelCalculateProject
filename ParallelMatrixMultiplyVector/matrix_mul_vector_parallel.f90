@@ -1,7 +1,7 @@
 !******************************************************************************
 !
 !  matrix_mul_vector_parallel.f90
-!  ²¢ĞĞ¾ØÕóÏòÁ¿³Ë·¨£¬»ùÓÚÒÔÎªĞĞ»®·Ö·½·¨½øĞĞ²¢ĞĞ»¯
+!  å¹¶è¡ŒçŸ©é˜µå‘é‡ä¹˜æ³•ï¼ŒåŸºäºè¡Œåˆ’åˆ†æ–¹æ³•è¿›è¡Œå¹¶è¡ŒåŒ–
 !  
 !******************************************************************************
 
@@ -29,15 +29,15 @@ program parallel_Mat_mul_Vec
     myleft = my_left(myrank, NPROC)
     myright = my_right(myrank, NPROC)
 	
-    allocate(matrix_buf(N, buf_size)) ! FortranµÄ¾ØÕó´¢´æ·½Ê½ÎªÁĞ´¢´æ£¬ĞèÒª
-                                      ! ½øĞĞÒ»´Î×ªÖÃ£¬Òò´ËÉèÖÃ¶ÁÈ¡»º´æ¿Õ¼ä
-    allocate(vector_buf(buf_size,1)) ! ½ÓÊÕÆäËû½ø³Ì´¢´æµÄÏòÁ¿ËùĞèÒªµÄ»º´æ¿Õ¼ä
+    allocate(matrix_buf(N, buf_size)) ! Fortrançš„çŸ©é˜µå‚¨å­˜æ–¹å¼ä¸ºåˆ—å‚¨å­˜ï¼Œéœ€è¦
+                                      ! è¿›è¡Œä¸€æ¬¡è½¬ç½®ï¼Œå› æ­¤è®¾ç½®è¯»å–ç¼“å­˜ç©ºé—´
+    allocate(vector_buf(buf_size,1))  ! æ¥æ”¶å…¶ä»–è¿›ç¨‹å‚¨å­˜çš„å‘é‡æ‰€éœ€è¦çš„ç¼“å­˜ç©ºé—´
     allocate(matrix(buf_size, N))
     allocate(vector(buf_size, 1))
     allocate(answer(N, 1))
     allocate(answer_buf(N, 1))
 
-    ! ¶ÁÈ¡¾ØÕó
+    ! è¯»å–çŸ©é˜µ
     call mpi_file_open(MPI_COMM_WORLD, "matrix", MPI_MODE_RDONLY, MPI_INFO_NULL, &
     &  myfile, IERR)
     call mpi_file_seek(myfile, myrank*N*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, &
@@ -46,7 +46,7 @@ program parallel_Mat_mul_Vec
     call mpi_file_close(myfile, IERR)
     matrix = transpose(matrix_buf)
 
-    ! ¶ÁÈ¡ÏòÁ¿
+    ! è¯»å–å‘é‡
     call mpi_file_open(MPI_COMM_WORLD, "vector", MPI_MODE_RDONLY, MPI_INFO_NULL, &
     &  myfile, IERR)
     call mpi_file_seek(myfile, myrank*buf_size*sizeof(MPI_REAL), MPI_SEEK_SET, IERR)
@@ -54,23 +54,23 @@ program parallel_Mat_mul_Vec
     call mpi_file_close(myfile, IERR)
 
     answer = 0
-    deallocate(matrix_buf) ! ÊÍ·Å¾ØÕó»º´æ¿Õ¼äÓÃÓÚ´¢´æÃ¿Ò»´Î¼ÆËãÊ±µÄ¾ØÕó¿é
+    deallocate(matrix_buf) ! é‡Šæ”¾çŸ©é˜µç¼“å­˜ç©ºé—´ç”¨äºå‚¨å­˜æ¯ä¸€æ¬¡è®¡ç®—æ—¶çš„çŸ©é˜µå—
     allocate(matrix_buf(buf_size, buf_size))
-    ! Ñ­»·½ø³ÌÖĞ´¢´æµÄËùÓĞ¾ØÕó¿é
+    ! å¾ªç¯è¿›ç¨‹ä¸­å‚¨å­˜çš„æ‰€æœ‰çŸ©é˜µå—
     do cnt = 0, NPROC
-        ! ¼ÆËã¶ÔÓ¦¾ØÕó¿éÓëÏòÁ¿µÄ³Ë»ı
+        ! è®¡ç®—å¯¹åº”çŸ©é˜µå—ä¸å‘é‡çš„ä¹˜ç§¯
         matrix_buf = matrix(:, mod(myrank+cnt, NPROC)*buf_size+1:(mod(myrank+cnt, NPROC) &
         &  +1)*buf_size)
         answer(myrank*buf_size+1:(myrank+1)*buf_size, :) = matmul(matrix_buf,vector) &
         &  + answer(myrank*buf_size+1:(myrank+1)*buf_size, :)
-        ! ½øĞĞÒ»´ÎÏòÁ¿¿éµÄ´«µİ(ÏòÉÏ)
+        ! è¿›è¡Œä¸€æ¬¡å‘é‡å—çš„ä¼ é€’(å‘ä¸Š)
         call mpi_send(vector, buf_size, MPI_REAL, myleft, myrank, MPI_COMM_WORLD, IERR)
         call mpi_recv(vector_buf, buf_size, MPI_REAL, myright, myright, &
         &  MPI_COMM_WORLD, NSTATUS, IERR)
         vector = vector_buf
     end do
 	
-    ! È«¹æÔ¼½á¹ûÏòÁ¿£¬²¢ĞĞÊä³öµ½ÎÄ¼ş
+    ! å…¨è§„çº¦ç»“æœå‘é‡ï¼Œå¹¶è¡Œè¾“å‡ºåˆ°æ–‡ä»¶
     call mpi_allreduce(answer, answer_buf, N, MPI_REAL, MPI_SUM, MPI_COMM_WORLD, IERR)
     call mpi_file_open(MPI_COMM_WORLD, "answer", MPI_MODE_CREATE+MPI_MODE_WRONLY, &
     &  MPI_INFO_NULL, myfile, IERR)
@@ -79,7 +79,7 @@ program parallel_Mat_mul_Vec
     &  MPI_STATUS_IGNORE, IERR)
     call mpi_file_close(myfile, IERR)
 	
-    ! ½«¸÷½ø³ÌµÄÔËĞĞÊ±¼ä¼ÇÂ¼µ½ÎÄ¼şÖĞ
+    ! å°†å„è¿›ç¨‹çš„è¿è¡Œæ—¶é—´è®°å½•åˆ°æ–‡ä»¶ä¸­
     call cpu_time(endwtime)
     wtime = (endwtime - startwtime) * 1000
     write(sTemp, '(i2)') NPROC  
@@ -100,8 +100,7 @@ program parallel_Mat_mul_Vec
 end program parallel_Mat_mul_Vec
 
 
-!-------------------×Ó³ÌĞòÓëº¯Êı²¿·Ö-------------------------------------------
-
+!-------------------å­ç¨‹åºä¸å‡½æ•°éƒ¨åˆ†-------------------------------------------
 integer function my_left(myrank, nproc) result(ans)
 
     implicit none 

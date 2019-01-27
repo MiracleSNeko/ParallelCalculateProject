@@ -40,8 +40,9 @@ program serial_Mat_mul_Vec
     end do
     
     call cpu_time(endwtime)
-    open(40, file = 'walltime')
-    write(40, *) (endwtime - startwtime) * 1000
+    open(40, file = 'walltime', access = 'direct', form = 'unformatted', &
+    & recl = 4)
+    write(40, rec = 1) (endwtime - startwtime) * 1000
     close(40)
 
 end program serial_Mat_mul_Vec

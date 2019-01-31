@@ -1,19 +1,25 @@
 C***********************************************************************
 C
 C     walltime.for
-C     计算串行程序和并行程序的运行时间并显示
+C     计算串行程序和并行程序的运行时间并显�?
 C
 C***********************************************************************
 
       PROGRAM WALLTIME_FOR
       
-      REAL*4 T, T1, T4(4), T8(8), T16(16)
+      REAL*4 T, TS, T1, T4(4), T8(8), T16(16)
             
       OPEN(8, FILE = 'walltime', ACCESS = 'DIRECT', FORM = 'UNFORMATTED
      & ', RECL = 4)
       READ(8, REC = 1) T
       CLOSE(8)
       PRINT *, "serial program walltime: ", T, "ms"
+      
+      OPEN(8, FILE = 'walltime_mpiio', ACCESS = 'DIRECT', 
+     & FORM = 'UNFORMATTED', RECL = 4)
+      READ(8, REC = 1) TS
+      CLOSE(8)
+      PRINT *, "serial program(MPI I/O) walltime: ", TS, "ms"
       
       OPEN(8, FILE = 'walltime1', ACCESS = 'DIRECT', FORM = 'UNFORMATTED
      & ', RECL = 4)

@@ -8,12 +8,21 @@
 
 program parallel_FDM
 	
-	use mpi
-	implicit none
+    use mpi
+    use generating_matrix
+    implicit none
 	
+  
 	
 
 end program parallel_FDM
 
 
 !------------------------子程序和函数部分---------------------------------------
+
+subroutine generating_matrix
+
+    implicit none
+    
+
+end subroutine generating_matrix

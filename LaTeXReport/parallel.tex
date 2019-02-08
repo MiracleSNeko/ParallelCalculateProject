@@ -1,33 +1,141 @@
 \documentclass{article}
-\usepackage{listings}
-\usepackage{xcolor}
+
 \usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{extarrows}
+\usepackage{color}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{algorithm} 
+%\usepackage{algorithmic} 
+\usepackage{algorithmicx}  
+\usepackage{algpseudocode}  
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
 \usepackage[width=16cm]{geometry}
-\pagestyle{empty}
+
+
+\geometry{a4paper,scale=0.8}
+\newtheorem{theorem}{\hspace{2em}定理}
+\newtheorem{lemma}{\hspace{2em}引理}
+%\newtheorem{proof}{证明}
+\floatname{algorithm}{算法}  
+\renewcommand{\algorithmicrequire}{\textbf{输入:}}  
+\renewcommand{\algorithmicensure}{\textbf{输出:}}  
+
+
+\title{并行算法试题 答题卷}
+\author{林宇健   2018202296}
+\date{\today}
 
 \begin{document}
-\setlength{\fboxsep}{0.3pt}
-\lstset{language={[90]Fortran},
-         extendedchars=false,
-        lineskip=-1pt,
-         basicstyle=\tt\tiny\color{black},
-         %commentstyle=\rm\color{green!30!black},
-        keywordstyle=\bf,
-         %stringstyle=\color{red},
-         showstringspaces=true,
-         %identifierstyle=\color{blue},
-         numberstyle=\color{magenta},
-         texcl=false,  % 为true时，注释内容被当做LaTeX代码来处理，因而需要做相应修改： 
-                      % _ => \_, ^ => \^{}, < => $<$, > => $>$, % => \% 等
-         emph={
-                Init_Matrices, Deallocate_Matrices, Init_Spin_Operators, Init_crossPos_EGaps, Get_Energy_gaps, Get_pLZ,
-               myzheev, B0mmp, FindBmmp_v2, EneRightOrder , InitSpinPos_b, cgama, ArgGamma, outputEG, InitSpinRelations,
-                DeallocateSpinList, InitInteractions, updateSpinList, sortSpinList, myseed, rand16807, reset16807,
-              gaussSample, mydate, seconds_from_1970, walltime, timestring, hostname
-              },
-         numbers=left,
-         frame=single
-        %frame=shadowbox, rulesepcolor=\color{blue}
-         }
- \lstinputlisting{matrix_mul_vector_parallel.f90}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{并行矩阵向量乘法}
+\subsection{问题描述和分析}
+编程计算$Ax$，其中$A$是$m\times n$的稠密矩阵，$x$是$n$维列向量，分别采用$1,4,8,16$台处理机计算。给出并行算法，及并行效率分析。
+
+记$y=Ax$。为简便起见，取$A$是$n\times n$的方阵，$n = 2048$可以整除$1,4,8,16$，从而保证每个进程储存的向量块维度相同。对于不能整除$4,8,16$的$n$，可通过循环存储等方式为各个进程分配矩阵和向量的数据。在计算时编程随机生成了$matrix_{2048\times 2048}$和$vector_{2048 \times 1}$作为待计算的矩阵和向量（计算程序略去）。
+
+我们采用一维行划分的方式并行计算矩阵向量乘法。假设矩阵$A$按逐行一维块划分为$p$个块（$p$表示进程数），即$A = [A_{1}, A_{2}, \cdots, A_{p}]^{T},A_{k} = [A_{k,0},A_{k,1},\cdots,A_{k,p}]$。其中
+
+\begin{center}	
+	$A_{k,j} = $
+	\begin{bmatrix}
+		$a_{k\times n/p+1,j\times n/p+1}$ & $a_{k\times n/p+1,j\times n/p+2}$ & $\cdots$ & $a_{k\times n/p+1,j\times n/p+n/p}$ \\
+		$a_{k\times n/p+2,j\times n/p+1}$ & $a_{k\times n/p+2,j\times n/p+2}$ & $\cdots$ & $a_{k\times n/p+2,j\times n/p+n/p}$ \\
+		$\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ \\
+		$a_{k\times n/p+n/p,j\times n/p+1}$ & $a_{k\times n/p+n/p,j\times n/p+2}$ & $\cdots$ & $a_{k\times n/p+n/p,j\times n/p+n/p}$ \\
+	\end{bmatrix}
+\end{center}
+
+与之相对应，向量$x$和向量$y$也分为$p$个块，其第$k(0\leq k\leq p-1)$个块分别为
+
+$$$$
+$$$$
+
+\begin{center}
+	\renewcommand\tabcolsep{7pt}
+	\begin{tabular}{cccc|c|c|ccc}
+		\multicolumn{4}{c}{\bf{$A$}}& \multicolumn{1}{c}{ }& \multicolumn{1}{c}{\bf{$X$}}& &\\
+		\cline{1-4} \cline{6-6}
+		\multicolumn{1}{|c}{\bf{$A_{1,1}$}}& $A_{1,2}$& $\cdots$& $A_{1,p}$& & $x_{1}$& &$P_{1}$\\
+		\cline{1-4}\cline{6-6}
+		\cmidrule[0.25pt]{1-8}
+		\cline{1-4}\cline{6-6}
+		\multicolumn{1}{|c}{\bf{$A_{2,1}$}}& $A_{2,2}$& $\cdots$& $A_{2,p}$& & $x_{2}$& &$P_{2}$\\
+		\cline{1-4}\cline{6-6}
+		\cmidrule[0.25pt]{1-8}
+		\cline{1-4}\cline{6-6}
+		\multicolumn{1}{|c}{$\vdots$}& $\vdots$& $\ddots$& $\vdots$& & $\vdots$& &$\vdots$\\
+		\cline{1-4}\cline{6-6}
+		\cmidrule[0.25pt]{1-8}
+		\cline{1-4}\cline{6-6}
+		\multicolumn{1}{|c}{\bf{$A_{p,1}$}}& $A_{p,2}$& $\cdots$& $A_{p,p}$& & $x_{p}$& &$P_{p}$\\
+		\cline{1-4}\cline{6-6}
+	\end{tabular}
+\end{center}
+	
+\begin{center}
+	\setlength{\fboxsep}{0.3pt}
+	\lstset{
+		language={[90]Fortran},
+		extendedchars=false,
+		lineskip=-1pt,
+		basicstyle=\ttfamily\footnotesize\color{black},
+		keywordstyle=\bf,
+		showstringspaces=true,
+		numberstyle=\color{black},
+		%texcl=false,
+		escapeinside=``,
+		numbers=left,
+		frame=single
+	}
+	\lstinputlisting{matrix_mul_vector_parallel.f90}
+	\lstinputlisting{matrix_mul_vector_serial.f90}
+\end{center}	
+
+\begin{center}
+	\lstset{
+		language={C},
+		extendedchars=false,
+		lineskip=-1pt,
+		basicstyle=\ttfamily\footnotesize\color{black},
+		keywordstyle=\color{black},
+		showstringspaces=true,
+		numberstyle=\color{black},
+		%texcl=false,
+		escapeinside=``,
+		numbers=left,
+		frame=single
+	}
+	\lstinputlisting{autoexec.sh}
+\end{center}	
+
+\begin{center}
+	\lstset{
+		language={[77]Fortran},
+		extendedchars=false,
+		lineskip=-1pt,
+		basicstyle=\ttfamily\footnotesize\color{black},
+		keywordstyle=\scriptsize\bf,
+		showstringspaces=false,
+		numberstyle=\color{black},
+		%texcl=false,
+		escapeinside=``,
+		numbers=left,
+		frame=single
+	}
+	\lstinputlisting{walltime.for}
+\end{center}	
+
+
+
 \end{document}

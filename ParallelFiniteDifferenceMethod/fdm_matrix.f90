@@ -1,15 +1,15 @@
 !***********************************************************************
 !
 !        fdm_matrix.f90
-!        Îåµã²î·Ö·¨Çó½â²´ËÉ·½³ÌµÚÒ»±ßÖµÎÊÌâ
-!        ·½³ÌµÄ±ßÖµÌõ¼ş²»ÏàÈİ£¬¶Ô¼ÆËã¿ÉÄÜÓĞÓ°Ïì
+!        äº”ç‚¹å·®åˆ†æ³•æ±‚è§£æ³Šæ¾æ–¹ç¨‹ç¬¬ä¸€è¾¹å€¼é—®é¢˜
+!        æ–¹ç¨‹çš„è¾¹å€¼æ¡ä»¶å¹¶ä¸ç›¸å®¹ï¼Œå¯¹ç»“æœå¯èƒ½æœ‰ä¸€å®šå½±å“
 !        \Delta u = xy  (x,y) \in (0,1) \times (0,1)
 !        u(0,y) = y, u(1,y) = 1-y, u(x,0) = u(x,1) = 0
-!        Éú³ÉÎåµã²î·Ö¾ØÕó²¢´¦Àí±ßÖµÌõ¼ş
+!        ç”Ÿæˆäº”ç‚¹å·®åˆ†çŸ©é˜µå¹¶å¤„ç†è¾¹å€¼æ¡ä»¶
 !
 !***********************************************************************
 
-!-------------------------³£ÊıÉêÃ÷²¿·Ö----------------------------------
+!-------------------------å¸¸æ•°å£°æ˜éƒ¨åˆ†----------------------------------
 
 module constant_
     
@@ -17,15 +17,12 @@ module constant_
     integer, parameter :: N = 50
     integer, parameter :: matrix_size = (N+1)*(N+1)
     real(4), parameter :: h = 1.0/N
-    ! real(4) :: mat_A(matrix_size: matrix_size)
-    ! real(4) :: vec_U(matrix_size: 1)
-    ! real(4) :: vec_F(matrix_size: 1)
-    integer :: i, j, k
+    integer :: i, j, row, col
 
 end module constant_
 
 
-!--------------------------Ö÷³ÌĞòÈë¿Ú-----------------------------------
+!--------------------------ä¸»ç¨‹åºå…¥å£-----------------------------------
 
 program five_point_difference_matrix
 
@@ -33,15 +30,17 @@ program five_point_difference_matrix
     implicit none
     
     real(4) :: A(0: matrix_size-1, 0: matrix_size-1) = 0
-    real(4) :: U(0: matrix_size-1, 1) = 0, F(0: matrix_size-1, 1) = 0
-    
+    real(4) :: F(0: matrix_size-1, 1) = 0
+    call generate_matrix(A, F)
+    call boundray_condition(A, F)
+
 
     
 
 end program five_point_difference_matrix
 
 
-!-------------------------×Ó³ÌĞòºÍº¯Êı²¿·Ö------------------------------
+!-------------------------å­ç¨‹åºä¸å‡½æ•°éƒ¨åˆ†------------------------------
 
 subroutine generate_matrix(matrix_A, vector_F)
 
@@ -52,7 +51,7 @@ subroutine generate_matrix(matrix_A, vector_F)
     !real(4), intent(inout) :: vector_U(matrix_size, 1)
     real(4), intent(inout) :: vector_F(0: matrix_size-1, 1)
     
-    ! ¹¹ÔìÎåµã²î·ÖµÄÏµÊı¾ØÕó(²»º¬±ß½ç)
+    ! æ„æˆäº”ç‚¹å·®åˆ†çš„ç³»æ•°çŸ©é˜µ(ä¸å«è¾¹ç•Œ)
     do i = 1, N
         do j = 1, N
             matrix_A(i+j*(N+1), i+j*(N+1)) = -4
@@ -69,36 +68,184 @@ end subroutine generate_matrix
 
 subroutine boundray_condition(matrix_A, vector_F)
 
+    ! å¤„ç†å®Œåä»…ä¿ç•™Aå’ŒFçš„ä¸€éƒ¨åˆ†ï¼Œå…¶ä½™éƒ¨åˆ†ç½®é›¶
+
     use constant_
     implicit none
     
     real(4), intent(inout) :: matrix_A(0: matrix_size-1, 0: matrix_size-1)
     real(4), intent(inout) :: vector_F(0: matrix_size-1, 1)
+    real(4), allocatable :: buf_A_1(:, :), buf_A_2(:, :), buf_F(:, :)
+    integer, parameter :: num_not_bd = matrix_size-2*(N+1)-2*(N-1)
+    integer :: index_zero(2*(N+1)-2*(N-1)), index_notzero(num_not_bd)
     
-    ! ³õÊ¼»¯±ß½çÌõ¼ş
-    ! ÉÏ±ß½ç: U(x,1) = 0
-    do j = 1, N
-        matrix_A(N+j*(N+1), N+j*(N+1)) = 1
-        vector_F(N+j*(N+1), 1) = 0
+    ! åˆå§‹åŒ–è¾¹ç•Œæ¡ä»¶
+    ! ä¸Šè¾¹ç•Œ: U(x,1) = 0
+    j = N
+    do i = 0, N+1
+        matrix_A(i+j*(N+1), i+j*(N+1)) = 1
+        vector_F(i+j*(N+1), 1) = 0
     end do
-    ! ÏÂ±ß½ç: U(x,0) = 0
-    do j = 1, N
-        matrix_A(0+j*(N+1), 0+j*(N+1)) = 1
-        vector_F(0+j*(N+1), 1) = 0
+    ! ä¸‹è¾¹ç•Œ: U(x,0) = 0
+    j = 0
+    do i = 0, N+1
+        matrix_A(i+j*(N+1), i+j*(N+1)) = 1
+        vector_F(i+j*(N+1), 1) = 0
     end do
-    ! ×ó±ß½ç: U(0,y) = y
-    do i = 1,N
-        matrix_A(i+0*(N+1), i+0*(N+1)) = 1
-        vector_F(i+0*(N+1), 1) = h*i
+    ! å·¦è¾¹ç•Œ: U(0,y) = y
+    i = 0
+    do j = 0, N+1
+        matrix_A(i+j*(N+1), i+j*(N+1)) = 1
+        vector_F(i+j*(N+1), 1) = h*i
     end do
-    ! ÓÒ±ß½ç: U(1,y) = 1-y
-    do i = 1, N
-        matrix_A(i+N*(N+1), i+N*(N+1)) = 1
-        vector_F(i+N*(N+1), 1) = 1-h*i
+    ! å³è¾¹ç•Œ: U(1,y) = 1-y
+    i = N
+    do j = 0, N+1
+        matrix_A(i+j*(N+1), i+j*(N+1)) = 1
+        vector_F(i+j*(N+1), 1) = 1-h*i
     end do
 
-    ! ÕûºÏ±ß½çÌõ¼ş
-    ! ¸÷¸ö±ß½ç
-    
+    ! æ•´åˆè¾¹ç•Œæ¡ä»¶
+    ! å„ä¸ªè¾¹ç•Œå‡å»å¯¹åº”åˆ—éé›¶å…ƒæ‰€åœ¨è¡Œçš„å…ƒç´ 
+    ! ç»“æœæ˜¯å°†çŸ©é˜µåŒ–ä¸ºé™¤è¾¹ç•Œå¤–å¯ä»¥çº¢é»‘æ’åºçš„çŸ©é˜µ
+    ! å¤„ç†ä¸Šè¾¹ç•Œ
+    j = N
+    do i = 0, N+1
+        do col = 0, matrix_size
+            if ( 0 /= matrix_A(i+j*(N+1), col))  then
+                do row = 0, matrix_size
+                    matrix_A(row, col) = matrix_A(row, col) - matrix_A(row, i+j*(N+1))
+                end do
+                vector_F(col, 1) = vector_F(col, 1) - vector_F(i+j*(N+1), 1)
+            end if
+        end do
+        matrix_A(i+j*(N+1), i+j*(N+1)) = 0
+        vector_F(i+j*(N+1), 1) = 0
+    end do
+    ! å¤„ç†ä¸‹è¾¹ç•Œ
+    j = 0
+    do i = 0, N+1
+        do col = 0, matrix_size
+            if ( 0 /= matrix_A(i+j*(N+1), col))  then
+                do row = 0, matrix_size
+                    matrix_A(row, col) = matrix_A(row, col) - matrix_A(row, i+j*(N+1))
+                end do
+                vector_F(col, 1) = vector_F(col, 1) - vector_F(i+j*(N+1), 1)
+            end if
+        end do
+        matrix_A(i+j*(N+1), i+j*(N+1)) = 0
+        vector_F(i+j*(N+1), 1) = 0
+    end do
+    ! å¤„ç†å·¦è¾¹ç•Œ
+    i = 0
+    do j = 0, N+1
+        do col = 0, matrix_size
+            if ( 0 /= matrix_A(i+j*(N+1), col))  then
+                do row = 0, matrix_size
+                    matrix_A(row, col) = matrix_A(row, col) - matrix_A(row, i+j*(N+1))
+                end do
+                vector_F(col, 1) = vector_F(col, 1) - vector_F(i+j*(N+1), 1)
+            end if
+        end do
+        matrix_A(i+j*(N+1), i+j*(N+1)) = 0
+        vector_F(i+j*(N+1), 1) = 0
+    end do
+    ! å¤„ç†å³è¾¹ç•Œ
+    i = N
+    do j = 0, N+1
+        do col = 0, matrix_size
+            if ( 0 /= matrix_A(i+j*(N+1), col))  then
+                do row = 0, matrix_size
+                    matrix_A(row, col) = matrix_A(row, col) - matrix_A(row, i+j*(N+1))
+                end do
+                vector_F(col, 1) = vector_F(col, 1) - vector_F(i+j*(N+1), 1)
+            end if
+        end do
+        matrix_A(i+j*(N+1), i+j*(N+1)) = 0
+        vector_F(i+j*(N+1), 1) = 0
+    end do
+    ! å»æ‰å¤šä½™çš„é›¶ï¼Œå¾—åˆ°å¯ä»¥çº¢é»‘æ’åºçš„çŸ©é˜µ
+    ! è®¡ç®—å¹¶è®°å½•å…¨é›¶è¡Œçš„ä½ç½®
+    col = 0
+    ! ä¸‹è¾¹ç•Œ
+    j = 0
+    do i = 0, N
+        if (col >= 2*(N-1) + 2*(N+1)) exit
+        index_zero(col) = i+j*(N+1)
+        col = col + 1
+    end do
+    ! ä¸Šè¾¹ç•Œ
+    j = N
+    do i = 0, N
+        if (col >= 2*(N-1) + 2*(N+1)) exit
+        index_zero(col) = i+j*(N+1)
+        col = col + 1
+    end do
+    ! å·¦è¾¹ç•Œ
+    i = 0
+    do j = 0, N
+        if (col >= 2*(N-1) + 2*(N+1)) exit
+        index_zero(col) = i+j*(N+1)
+        col = col + 1
+    end do
+    ! å³è¾¹ç•Œ
+    i = N
+    do j = 0, N
+        if (col >= 2*(N-1) + 2*(N+1)) exit
+        index_zero(col) = i+j*(N+1)
+        col = col + 1
+    end do
+    ! è®¡ç®—éå…¨é›¶è¡Œä½ç½®
+    i = 0
+    do j = 0, matrix_size
+        do col = 0, 2*(N+1)+2*(N-1)
+            if (j == index_zero(col)) exit
+        end do
+        if (col >= 2*(N+1)+2*(N-1)) then
+            index_notzero(i) = j
+            i = i + 1
+        end if
+    end do
+    ! å»æ‰å…¨é›¶è¡Œ
+    allocate(buf_A_1(0:matrix_size-1, 0:num_not_bd-1))
+    do i = 0, num_not_bd
+        do j = 0 ,matrix_size
+            buf_A_1(j, i) = matrix_A(j, index_notzero(i))
+        end do
+    end do
+    ! å»æ‰å…¨é›¶åˆ—
+    allocate(buf_A_2(0:num_not_bd-1, 0:num_not_bd-1))
+    do i = 0, num_not_bd
+        do j = 0 ,num_not_bd
+            buf_A_1(j, i) = matrix_A(index_notzero(j), i)
+        end do
+    end do
+    ! å¯¹åº”å¤„ç†å³ç«¯é¡¹
+    allocate(buf_F(0: num_not_bd-1, 1))
+    do i = 0, num_not_bd
+        buf_F(i, 1) = vector_F(index_notzero(i), 1)
+    end do
+
+    matrix_A = 0
+    vector_F = 0
+    matrix_A(0: num_not_bd-1, 0: num_not_bd-1) = buf_A_2(0: num_not_bd-1, 0: num_not_bd-1)
+    vector_F(0: num_not_bd, 1) = buf_F(0: num_not_bd, 1)
+
+    deallocate(buf_F)
+    deallocate(buf_A_2)
+    deallocate(buf_A_1)
+
 end subroutine boundray_condition
 
+subroutine sort_RB(matrix_A, vector_F)
+
+    use constant_
+    implicit none
+    
+    integer, parameter :: num_not_bd = matrix_size-2*(N+1)-2*(N-1)
+    real(4), intent(inout) :: matrix_A(0: num_not_bd, 0: num_not_bd)
+    real(4), intent(inout) :: vector_F(0: num_not_bd, 1)
+
+    vector_F = matmul(matrix_A,vector_F)
+
+end subroutine sort_RB

@@ -1,6 +1,6 @@
 `!`******************************************************************************
 `!`
-`!`  `matrix_mul_vector_serial_with_mpi.f90`
+`!`  `matrix\_mul\_vector\_serial\_with\_mpi.f90`
 `!`  `串行矩阵向量乘法`
 `!`  
 `!`******************************************************************************
@@ -42,7 +42,7 @@ program serial_Mat_mul_Vec_mpiio
     
     answer = matmul(matrix, vector)
     
-    `! 全规约结果向量，并行输出到文�?`
+    `! 结果向量输出到文件`
     call mpi_file_open(MPI_COMM_WORLD, "answer", MPI_MODE_CREATE+MPI_MODE_WRONLY, &
     &  MPI_INFO_NULL, myfile, IERR)
     call mpi_file_seek(myfile, myrank*N*sizeof(MPI_REAL), MPI_SEEK_SET, IERR)
@@ -50,7 +50,7 @@ program serial_Mat_mul_Vec_mpiio
     &  MPI_STATUS_IGNORE, IERR)
     call mpi_file_close(myfile, IERR)
     
-    `! 将各进程的运行时间记录到文件�?`
+    `! 运行时间记录到文件`
     call cpu_time(endwtime)
     wtime = (endwtime - startwtime) * 1000 
     call mpi_file_open(MPI_COMM_WORLD, "walltime_mpiio", MPI_MODE_CREATE &

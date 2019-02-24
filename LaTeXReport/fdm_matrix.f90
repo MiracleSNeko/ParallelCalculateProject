@@ -237,7 +237,6 @@ subroutine boundray_condition(matrix_A, vector_F)
 
 end subroutine boundray_condition
 
-
 subroutine sort_RB(matrix_A, vector_F)
 
     use constant_
@@ -246,6 +245,6 @@ subroutine sort_RB(matrix_A, vector_F)
     real(4), intent(inout) :: matrix_A(0: num_not_bd, 0: num_not_bd)
     real(4), intent(inout) :: vector_F(0: num_not_bd, 1)
 
-
+    vector_F = matmul(matrix_A,vector_F)
 
 end subroutine sort_RB

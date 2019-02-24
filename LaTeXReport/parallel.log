@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.7)  22 FEB 2019 15:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.7)  25 FEB 2019 03:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1111,6 +1111,105 @@ Package graphics Info: Driver file: pdftex.def on input line 99.
 \Gin@req@height=\dimen170
 \Gin@req@width=\dimen171
 )
+(d:/texlive/2017/texmf-dist/tex/latex/diagbox/diagbox.sty
+Package: diagbox 2016/12/28 v2.2 Making table heads with diagonal lines
+
+(d:/texlive/2017/texmf-dist/tex/latex/pict2e/pict2e.sty
+Package: pict2e 2016/02/05 v0.3b Improved picture commands (HjG,RN,JT)
+
+(d:/texlive/2017/texmf-dist/tex/latex/pict2e/pict2e.cfg
+File: pict2e.cfg 2016/02/05 v0.1u pict2e configuration for teTeX/TeXLive
+)
+Package pict2e Info: Driver file: pdftex.def on input line 119.
+Package pict2e Info: Driver file for pict2e: p2e-pdftex.def on input line 121.
+
+(d:/texlive/2017/texmf-dist/tex/latex/pict2e/p2e-pdftex.def
+File: p2e-pdftex.def 2016/02/05 v0.1u Driver-dependant file (RN,HjG,JT)
+)
+\pIIe@GRAPH=\toks33
+\@arclen=\dimen172
+\@arcrad=\dimen173
+\@tempdimd=\dimen174
+)
+(d:/texlive/2017/texmf-dist/tex/latex/fp/fp.sty
+Package: fp 1995/04/02
+
+`Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
+(d:/texlive/2017/texmf-dist/tex/latex/fp/defpattern.sty
+Package: defpattern 1994/10/12
+\actioncount=\count174
+)
+(d:/texlive/2017/texmf-dist/tex/latex/fp/fp-basic.sty
+Package: fp-basic 1996/05/13
+\FP@xs=\count175
+\FP@xia=\count176
+\FP@xib=\count177
+\FP@xfa=\count178
+\FP@xfb=\count179
+\FP@rega=\count180
+\FP@regb=\count181
+\FP@regs=\count182
+\FP@times=\count183
+)
+(d:/texlive/2017/texmf-dist/tex/latex/fp/fp-addons.sty
+Package: fp-addons 1995/03/15
+)
+(d:/texlive/2017/texmf-dist/tex/latex/fp/fp-snap.sty
+Package: fp-snap 1995/04/05
+)
+(d:/texlive/2017/texmf-dist/tex/latex/fp/fp-exp.sty
+Package: fp-exp 1995/04/03
+)
+(d:/texlive/2017/texmf-dist/tex/latex/fp/fp-trigo.sty
+Package: fp-trigo 1995/04/14
+)
+(d:/texlive/2017/texmf-dist/tex/latex/fp/fp-pas.sty
+Package: fp-pas 1994/08/29
+)
+(d:/texlive/2017/texmf-dist/tex/latex/fp/fp-random.sty
+Package: fp-random 1995/02/23
+\FPseed=\count184
+)
+(d:/texlive/2017/texmf-dist/tex/latex/fp/fp-eqn.sty
+Package: fp-eqn 1995/04/03
+)
+(d:/texlive/2017/texmf-dist/tex/latex/fp/fp-upn.sty
+Package: fp-upn 1996/10/21
+)
+(d:/texlive/2017/texmf-dist/tex/latex/fp/fp-eval.sty
+Package: fp-eval 1995/04/03
+))
+(d:/texlive/2017/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count185
+\calc@Bcount=\count186
+\calc@Adimen=\dimen175
+\calc@Bdimen=\dimen176
+\calc@Askip=\skip64
+\calc@Bskip=\skip65
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count187
+\calc@Cskip=\skip66
+)
+(d:/texlive/2017/texmf-dist/tex/latex/tools/array.sty
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
+\col@sep=\dimen177
+\extrarowheight=\dimen178
+\NC@list=\toks34
+\extratabsurround=\skip67
+\backup@length=\skip68
+)
+\diagbox@boxa=\box55
+\diagbox@boxb=\box56
+\diagbox@boxm=\box57
+\diagbox@wd=\dimen179
+\diagbox@ht=\dimen180
+\diagbox@insepl=\dimen181
+\diagbox@insepr=\dimen182
+\diagbox@outsepl=\dimen183
+\diagbox@outsepr=\dimen184
+)
 (d:/texlive/2017/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
 
@@ -1139,21 +1238,21 @@ Package ifvtex Info: VTeX not detected.
 (d:/texlive/2017/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count174
-\Gm@cntv=\count175
-\c@Gm@tempcnt=\count176
-\Gm@bindingoffset=\dimen172
-\Gm@wd@mp=\dimen173
-\Gm@odd@mp=\dimen174
-\Gm@even@mp=\dimen175
-\Gm@layoutwidth=\dimen176
-\Gm@layoutheight=\dimen177
-\Gm@layouthoffset=\dimen178
-\Gm@layoutvoffset=\dimen179
-\Gm@dimlist=\toks33
+\Gm@cnth=\count188
+\Gm@cntv=\count189
+\c@Gm@tempcnt=\count190
+\Gm@bindingoffset=\dimen185
+\Gm@wd@mp=\dimen186
+\Gm@odd@mp=\dimen187
+\Gm@even@mp=\dimen188
+\Gm@layoutwidth=\dimen189
+\Gm@layoutheight=\dimen190
+\Gm@layouthoffset=\dimen191
+\Gm@layoutvoffset=\dimen192
+\Gm@dimlist=\toks35
 )
-\c@theorem=\count177
-\c@lemma=\count178
+\c@theorem=\count191
+\c@lemma=\count192
 
 (d:/texlive/2017/texmf-dist/tex/latex/cjk/texinput/utf8/UTF8.bdg
 File: UTF8.bdg 2015/04/18 4.8.4
@@ -1167,100 +1266,100 @@ File: UTF8.chr 2015/04/18 4.8.4
 (./parallel.aux)
 \openout1 = `parallel.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C00/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C05/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C09/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C10/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C20/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C19/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C40/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C42/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C43/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C50/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C52/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C49/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C60/mj/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C61/mj/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C63/mj/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C64/mj/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C65/mj/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C70/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C31/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C32/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C33/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C34/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C35/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C36/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C37/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C80/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C81/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C01/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C11/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C21/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C00/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C05/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C09/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C10/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C20/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C19/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C40/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C42/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C43/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C50/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C52/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C49/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C60/mj/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C61/mj/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C63/mj/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C64/mj/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C65/mj/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C70/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C31/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C32/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C33/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C34/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C35/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C36/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C37/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C80/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C81/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C01/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C11/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C21/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
  ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 36.
+LaTeX Info: Redefining \selectfont on input line 37.
 
 (d:/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count179
-\scratchdimen=\dimen180
-\scratchbox=\box55
-\nofMPsegments=\count180
-\nofMParguments=\count181
-\everyMPshowfont=\toks34
-\MPscratchCnt=\count182
-\MPscratchDim=\dimen181
-\MPnumerator=\count183
-\makeMPintoPDFobject=\count184
-\everyMPtoPDFconversion=\toks35
+\scratchcounter=\count193
+\scratchdimen=\dimen193
+\scratchbox=\box58
+\nofMPsegments=\count194
+\nofMParguments=\count195
+\everyMPshowfont=\toks36
+\MPscratchCnt=\count196
+\MPscratchDim=\dimen194
+\MPnumerator=\count197
+\makeMPintoPDFobject=\count198
+\everyMPtoPDFconversion=\toks37
 ) (d:/texlive/2017/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -1307,7 +1406,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count185
+\c@lstlisting=\count199
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1343,33 +1442,33 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for C70+rm on input line 37.
+LaTeX Font Info:    Try loading font information for C70+rm on input line 38.
 (d:/texlive/2017/texmf-dist/tex/latex/ctex/fd/c70rm.fd
 File: c70rm.fd 2017/04/01 v2.4.9 Chinese font definition (CTEX)
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 37.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 38.
 
 (d:/texlive/2017/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 37.
+LaTeX Font Info:    Try loading font information for U+msa on input line 38.
 
 (d:/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 37.
+LaTeX Font Info:    Try loading font information for U+msb on input line 38.
 
 (d:/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <10.53937> not available
-(Font)              size <10.95> substituted on input line 43.
+(Font)              size <10.95> substituted on input line 44.
 
 Package CJKpunct Info: use punctuation spaces for family 'rm' with punctstyle (
-quanjiao) on input line 43.
+quanjiao) on input line 44.
 
-Overfull \hbox (3.81114pt too wide) in paragraph at lines 47--48
+Overfull \hbox (3.81114pt too wide) in paragraph at lines 48--49
 []\C70/rm/m/n/10.53937/62 ^^Q \C70/rm/m/n/10.53937/4e Ï \C70/rm/m/n/10.53937/91
  « \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/4e ^^@ \C70/rm/m/n/10.53937/7
 e Ù \C70/rm/m/n/10.53937/88 L \C70/rm/m/n/10.53937/52 ^^R ^^F \C70/rm/m/n/10.53
@@ -1386,232 +1485,66 @@ e Ù \C70/rm/m/n/10.53937/88 L \C70/rm/m/n/10.53937/52 ^^R ^^F \C70/rm/m/n/10.53
 /10.53937/ff ^^H|$\OML/cmm/m/it/10.53937 p$\C70/rm/m/n/10.53937/88 h
  []
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.51 	\begin{bmatrix}
-                     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+<pic01.png, id=43, 1107.13625pt x 232.87pt>
+File: pic01.png Graphic file (type png)
+ <use pic01.png>
+Package pdftex.def Info: pic01.png used on input line 51.
+(pdftex.def)             Requested size: 455.24408pt x 95.75447pt.
+ [1
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.52 		$a_
-          {k\times n/p+1,j\times n/p+1}$ & $a_{k\times n/p+1,j\times n/p+2}$...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+ <./pic01.png (PNG copy)>]
+Overfull \hbox (11.35715pt too wide) in paragraph at lines 94--95
+[]\C70/rm/m/n/10.53937/57 (\OT1/cmr/m/n/10.53937 MPI2.0\C70/rm/m/n/10.53937/53 
+  \C70/rm/m/n/10.53937/51 v \C70/rm/m/n/10.53937/4e Â 
+ \C70/rm/m/n/10.53937/76 Ñ \C70/rm/m/n/10.53937/72 H \C70/rm/m/n/10.53937/67 , 
+\C70/rm/m/n/10.53937/4e -|\C70/rm/m/n/10.53937/ff ^^L| \C70/rm/m/n/10.53937/63 
+– \C70/rm/m/n/10.53937/4f õ \C70/rm/m/n/10.53937/4e Ü \C70/rm/m/n/10.53937/54 ^
+^D \C70/rm/m/n/10.53937/4e * \C70/rm/m/n/10.53937/8f € \C70/rm/m/n/10.53937/7a 
+ \C70/rm/m/n/10.53937/5e v \C70/rm/m/n/10.53937/88 L \C70/rm/m/n/10.53937/8b ø
+ \C70/rm/m/n/10.53937/95 Ó \C70/rm/m/n/10.53937/8b ˚ \C70/rm/m/n/10.53937/51 ô 
+\C70/rm/m/n/10.53937/65 á \C70/rm/m/n/10.53937/4e ˆ \C70/rm/m/n/10.53937/76 Ñ\O
+T1/cmr/m/n/10.53937 I/O\C70/rm/m/n/10.53937/51 ˝ \C70/rm/m/n/10.53937/65 p|\C70
+/rm/m/n/10.53937/ff ^^L| \C70/rm/m/n/10.53937/79  \C70/rm/m/n/10.53937/4e :\OT
+1/cmr/m/n/10.53937 MPI\C70/rm/m/n/10.53937/5e v \C70/rm/m/n/10.53937/88 L\OT1/c
+mr/m/n/10.53937 I/O\C70/rm/m/n/10.53937/51 ˝
+ []
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.52 		$a_{k\times n/p+1,j\times n/p+1}$ &
-                                           $a_{k\times n/p+1,j\times n/p+2}$...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.52 		$a_{k\times n/p+1,j\times n/p+1}$ & $a_
-                                              {k\times n/p+1,j\times n/p+2}$...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+Overfull \hbox (18.354pt too wide) in paragraph at lines 94--95
+\C70/rm/m/n/10.53937/65 p|\C70/rm/m/n/10.53937/30 ^^B| \C70/rm/m/n/10.53937/90 
+^^Z \C70/rm/m/n/10.53937/8f « \C70/rm/m/n/10.53937/57 ( \C70/rm/m/n/10.53937/5e
+ v \C70/rm/m/n/10.53937/88 L \C70/rm/m/n/10.53937/77 È \C70/rm/m/n/10.53937/96 
+5 \C70/rm/m/n/10.53937/54 ^^Q \C70/rm/m/n/10.53937/91 œ \C70/rm/m/n/10.53937/4e
+ X \C70/rm/m/n/10.53937/6c ’ \C70/rm/m/n/10.53937/4e - \C70/rm/m/n/10.53937/5f 
+^^U \C70/rm/m/n/10.53937/51 e \C70/rm/m/n/10.53937/5e v \C70/rm/m/n/10.53937/88
+ L\OT1/cmr/m/n/10.53937 I/O|\C70/rm/m/n/10.53937/ff ^^L| \C70/rm/m/n/10.53937/5
+3 Ô \C70/rm/m/n/10.53937/4e Â \C70/rm/m/n/10.53937/8f € \C70/rm/m/n/10.53937/4e
+ ^^@ \C70/rm/m/n/10.53937/6b e \C70/rm/m/n/10.53937/63 – \C70/rm/m/n/10.53937/9
+a ÿ \C70/rm/m/n/10.53937/5e v \C70/rm/m/n/10.53937/88 L \C70/rm/m/n/10.53937/5e
+ ¶|\C70/rm/m/n/10.53937/30 ^^B| \C70/rm/m/n/10.53937/51 v \C70/rm/m/n/10.53937/
+4e - ; \C70/rm/m/n/10.53937/89 Å \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937
+/52 0 \C70/rm/m/n/10.53937/76 Ñ\OT1/cmr/m/n/10.53937 MPI\C70/rm/m/n/10.53937/5e
+ v \C70/rm/m/n/10.53937/88 L\OT1/cmr/m/n/10.53937 I/O\C70/rm/m/n/10.53937/51 ˝
+ []
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...+1}$ & $a_{k\times n/p+1,j\times n/p+2}$ &
-                                                   $\cdots$ & $a_{k\times n/...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.52 ..._{k\times n/p+1,j\times n/p+2}$ & $\cdots$
-                                                   & $a_{k\times n/p+1,j\tim...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...k\times n/p+1,j\times n/p+2}$ & $\cdots$ &
-                                                   $a_{k\times n/p+1,j\times...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...mes n/p+1,j\times n/p+2}$ & $\cdots$ & $a_
-                                                  {k\times n/p+1,j\times n/p...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...$ & $a_{k\times n/p+1,j\times n/p+n/p}$ \\
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.53 		$a_
-          {k\times n/p+2,j\times n/p+1}$ & $a_{k\times n/p+2,j\times n/p+2}$...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.53 		$a_{k\times n/p+2,j\times n/p+1}$ &
-                                           $a_{k\times n/p+2,j\times n/p+2}$...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.53 		$a_{k\times n/p+2,j\times n/p+1}$ & $a_
-                                              {k\times n/p+2,j\times n/p+2}$...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...+1}$ & $a_{k\times n/p+2,j\times n/p+2}$ &
-                                                   $\cdots$ & $a_{k\times n/...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.53 ..._{k\times n/p+2,j\times n/p+2}$ & $\cdots$
-                                                   & $a_{k\times n/p+2,j\tim...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...k\times n/p+2,j\times n/p+2}$ & $\cdots$ &
-                                                   $a_{k\times n/p+2,j\times...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...mes n/p+2,j\times n/p+2}$ & $\cdots$ & $a_
-                                                  {k\times n/p+2,j\times n/p...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...$ & $a_{k\times n/p+2,j\times n/p+n/p}$ \\
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.54 		$\vdots$ & $\vdots$ & $\ddots
-                                    $ & $\vdots$ \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.54 		$\vdots$ & $\vdots$ & $\ddots$ &
-                                        $\vdots$ \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.55 		$a_
-          {k\times n/p+n/p,j\times n/p+1}$ & $a_{k\times n/p+n/p,j\times n/p...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.55 		$a_{k\times n/p+n/p,j\times n/p+1}$ &
-                                             $a_{k\times n/p+n/p,j\times n/p...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.55 		$a_{k\times n/p+n/p,j\times n/p+1}$ & $a_
-                                                {k\times n/p+n/p,j\times n/p...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.55 ...}$ & $a_{k\times n/p+n/p,j\times n/p+2}$ &
-                                                   $\cdots$ & $a_{k\times n/...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.55 ...k\times n/p+n/p,j\times n/p+2}$ & $\cdots$
-                                                   & $a_{k\times n/p+n/p,j\t...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.55 ...times n/p+n/p,j\times n/p+2}$ & $\cdots$ &
-                                                   $a_{k\times n/p+n/p,j\tim...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.55 ...s n/p+n/p,j\times n/p+2}$ & $\cdots$ & $a_
-                                                  {k\times n/p+n/p,j\times n...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.55 ...& $a_{k\times n/p+n/p,j\times n/p+n/p}$ \\
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.56 	\end{bmatrix}
-                   
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
+Overfull \hbox (11.97464pt too wide) in paragraph at lines 102--103
+\C70/rm/m/n/10.53937/63 n|\C70/rm/m/n/10.53937/30 ^^B| \C70/rm/m/n/10.53937/57 
+( \C70/rm/m/n/10.53937/7f ^^V \C70/rm/m/n/10.53937/7a  \C70/rm/m/n/10.53937/8c
+ ^^C \C70/rm/m/n/10.53937/75 ( \C70/rm/m/n/10.53937/76 Ñ \C70/rm/m/n/10.53937/8
+f « \C70/rm/m/n/10.53937/7a  \C70/rm/m/n/10.53937/4e -|\C70/rm/m/n/10.53937/ff
+ ^^L| \C70/rm/m/n/10.53937/6b œ \C70/rm/m/n/10.53937/4e * \C70/rm/m/n/10.53937/
+8f € \C70/rm/m/n/10.53937/7a  \C70/rm/m/n/10.53937/8b ˚ \C70/rm/m/n/10.53937/5
+3 ÷ \C70/rm/m/n/10.53937/77 È \C70/rm/m/n/10.53937/96 5 \C70/rm/m/n/10.53937/4e
+ - \C70/rm/m/n/10.53937/76 Ñ$\OML/cmm/m/it/10.53937 n \OMS/cmsy/m/n/10.53937 ^^
+B \OML/cmm/m/it/10.53937 n=p$\C70/rm/m/n/10.53937/4e * \C70/rm/m/n/10.53937/65 
+p \C70/rm/m/n/10.53937/63 n |\C70/rm/m/n/10.53937/ff ^^H|\C70/rm/m/n/10.53937/7
+5 ^^_ \C70/rm/m/n/10.53937/62 ^^P \C70/rm/m/n/10.53937/76 Ñ \C70/rm/m/n/10.5393
+7/77 È \C70/rm/m/n/10.53937/96 5 \C70/rm/m/n/10.53937/4e - \C70/rm/m/n/10.53937
+/65 p \C70/rm/m/n/10.53937/63 n \C70/rm/m/n/10.53937/7c { \C70/rm/m/n/10.53937/
+57 ã \C70/rm/m/n/10.53937/4e :\OT1/cmr/m/n/10.53937 REAL(4)|\C70/rm/m/n/10.5393
+7/ff 	|
+ []
 
 (d:/texlive/2017/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
@@ -1622,52 +1555,81 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 (d:/texlive/2017/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
-(./matrix_mul_vector_parallel.f90
+(./matrix_mul_vector_serial.f90
 LaTeX Font Info:    Try loading font information for C70+zhfs on input line 4.
 
 (d:/texlive/2017/texmf-dist/tex/latex/zhmetrics/c70zhfs.fd
 File: c70zhfs.fd 2009/09/23 4.8.2
 )
 Package CJKpunct Info: use punctuation spaces for family 'zhfs' with punctstyle
- (quanjiao) on input line 4.
- [1
-
-] [2])
-(./matrix_mul_vector_serial.f90) [3]
+ (quanjiao) on input line 23.
+ [2])
+(./matrix_mul_vector_serial_with_mpi.f90 [3]) (./matrix_mul_vector_parallel.f90
+[4]) (./walltime.for [5])
 (d:/texlive/2017/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
 (d:/texlive/2017/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 ) (./autoexec.sh)
-(./walltime.for
+Underfull \hbox (badness 10000) in paragraph at lines 217--218
 
-! Package CJK Error: Invalid character code.
+ []
 
-See the CJK package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4 ...ãÂ∫èÂíåÂπ∂Ë°åÁ®ãÂ∫èÁöÑËøêË°åÊó∂Èó¥Âπ∂ÊòæÁ§?
-                                                  `
-The third byte of the CJK code is out of range.
-Do you use the right encoding scheme?
+[6] <Q01.png, id=221, 511.9125pt x 128.48pt>
+File: Q01.png Graphic file (type png)
+ <use Q01.png>
+Package pdftex.def Info: Q01.png used on input line 219.
+(pdftex.def)             Requested size: 409.71689pt x 102.83118pt.
 
-) [4] [5] (./parallel.aux)
+Overfull \hbox (9.24942pt too wide) in paragraph at lines 222--223
+\C70/rm/m/n/10.53937/6b ‘\OT1/cmr/m/n/10.53937 1\C70/rm/m/n/10.53937/8f € \C70/
+rm/m/n/10.53937/7a  \C70/rm/m/n/10.53937/5e v \C70/rm/m/n/10.53937/88 L \C70/r
+m/m/n/10.53937/7a  \C70/rm/m/n/10.53937/5e è \C70/rm/m/n/10.53937/75 ( \C70/rm
+/m/n/10.53937/65 ˆ \C70/rm/m/n/10.53937/59 ^^Z \C70/rm/m/n/10.53937/51 ˙\OT1/cm
+r/m/n/10.53937 3\C70/rm/m/n/10.53937/50 ^^M \C70/rm/m/n/10.53937/76 Ñ \C70/rm/m
+/n/10.53937/95 Ó \C70/rm/m/n/10.53937/98 ò|\C70/rm/m/n/10.53937/30 ^^B| \C70/rm
+/m/n/10.53937/90 ^^Z \C70/rm/m/n/10.53937/8f « \C70/rm/m/n/10.53937/5c ^^F \C70
+/rm/m/n/10.53937/4e 2 \C70/rm/m/n/10.53937/88 L \C70/rm/m/n/10.53937/7a  \C70/
+rm/m/n/10.53937/5e è \C70/rm/m/n/10.53937/76 Ñ\OT1/cmr/m/n/10.53937 I/O\C70/rm/
+m/n/10.53937/4e Œ\OT1/cmr/m/n/10.53937 Fortran\C70/rm/m/n/10.53937/81 Í \C70/rm
+/m/n/10.53937/5e & \C70/rm/m/n/10.53937/76 Ñ\OT1/cmr/m/n/10.53937 I/O\C70/rm/m/
+n/10.53937/66 Ù \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/4e :\OT1/cmr/m/n
+/10.53937 MPI\C70/rm/m/n/10.53937/76 Ñ\OT1/cmr/m/n/10.53937 I/O\C70/rm/m/n/10.5
+3937/4e K
+ []
+
+[7 <./Q01.png (PNG copy)>] (./fdm_generate_matrix.f90) (./fdm_constant.f90)
+(./fdm_boundray_condition.f90 [8] [9]) [10] [11] (./parallel.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.41063pt have occurred.
 
  ) 
 Here is how much of TeX's memory you used:
- 18253 strings out of 492995
- 314549 string characters out of 6136403
- 427887 words of memory out of 5000000
- 21257 multiletter control sequences out of 15000+600000
- 49160 words of font info for 186 fonts, out of 8000000 for 9000
+ 20041 strings out of 492995
+ 337444 string characters out of 6136403
+ 452499 words of memory out of 5000000
+ 22878 multiletter control sequences out of 15000+600000
+ 62930 words of font info for 237 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,10n,58p,10436b,1289s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,14n,58p,10436b,1293s stack positions out of 5000i,500n,10000p,200000b,80000s
 <c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts
+/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WI
+NDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang
+.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fon
+ts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simhei.ttf><c:/WIN
+DOWS/fonts/simhei.ttf><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc
+><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simhei.ttf><c:/WINDOWS/fonts/si
+msun.ttc><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOW
+S/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf
+><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/
+simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WIN
+DOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.
+ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/font
+s/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WIND
+OWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.tt
+f><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts
 /simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WI
 NDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang
 .ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fo
@@ -1676,12 +1638,14 @@ nts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:
 ang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS
 /fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf>
 <c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/s
-imfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WIND
-OWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.t
-tf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/font
-s/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/W
-INDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfan
-g.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/f
+imsun.ttc><c:/WINDOWS/fonts/simhei.ttf><c:/WINDOWS/fonts/simhei.ttf><c:/WINDOWS
+/fonts/simhei.ttf><c:/WINDOWS/fonts/simhei.ttf><c:/WINDOWS/fonts/simhei.ttf><c:
+/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun
+.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/font
+s/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WIND
+OWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc>
+<c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/sim
+sun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/f
 onts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/W
 INDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.t
 tc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/
@@ -1692,7 +1656,7 @@ n.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fon
 ts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WIN
 DOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc
 ><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/si
-msun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/
+msun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simhei.ttf><c:/WINDOWS/
 fonts/simhei.ttf><c:/WINDOWS/fonts/simhei.ttf><c:/WINDOWS/fonts/simhei.ttf><c:/
 WINDOWS/fonts/simhei.ttf><c:/WINDOWS/fonts/simhei.ttf><c:/WINDOWS/fonts/simhei.
 ttf><c:/WINDOWS/fonts/simhei.ttf><c:/WINDOWS/fonts/simhei.ttf><c:/WINDOWS/fonts
@@ -1702,22 +1666,23 @@ c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/sims
 un.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fo
 nts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WI
 NDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.ttc><c:/WINDOWS/fonts/simsun.tt
-c><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/tex
-live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb><d:/texlive/2017/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><d:/texlive/2017/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmex10.pfb><d:/texlive/2017/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmitt10.pfb><d:/texlive/2017/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi10.pfb><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi7.pfb><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
-0.pfb><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:/
-texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/texlive/201
-7/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><d:/texlive/2017/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><d:/texlive/2017/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on parallel.pdf (5 pages, 452883 bytes).
+c><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><d:/tex
+live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/texlive/2017
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb><d:/texlive/2017/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmbx7.pfb><d:/texlive/2017/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmex10.pfb><d:/texlive/2017/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmitt10.pfb><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi10.pfb><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i7.pfb><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:
+/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:/texlive/2
+017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/texlive/2017/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><d:/texlive/2017/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy7.pfb><d:/texlive/2017/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmtt8.pfb>
+Output written on parallel.pdf (11 pages, 761532 bytes).
 PDF statistics:
- 496 PDF objects out of 1000 (max. 8388607)
- 333 compressed objects within 4 object streams
+ 731 PDF objects out of 1000 (max. 8388607)
+ 488 compressed objects within 5 object streams
  0 named destinations out of 1000 (max. 500000)
- 181 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 287 words of extra memory for PDF output out of 10000 (max. 10000000)
 

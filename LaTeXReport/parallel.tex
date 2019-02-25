@@ -341,7 +341,7 @@ $$\frac{u_{i,j+1}-2u_{i,j}+u_{i,j-1}}{h^{2}}+\frac{u_{i+1,j}-2u_{i,j}+u_{i-1,j}}
 				\State $S\gets I\ T,\textrm{Select} k\in S$
 				\For{$j\in \textrm{adj}_{k}\cap T$}  $t_{c_{j}}\gets 1$
 				\EndFor
-				\For{$j = 1\to l$}
+				\For{$j = 1\to n$}
 					\If{$t_{j} = 0$} $\textrm{Break}$ 
 					\EndIf
 				\EndFor
@@ -402,7 +402,45 @@ F_{R}\\
 F_{B}
 \end{matrix}\right]$$
 
-与SOR迭代$(D-\omega L)U^{k+1}=(\omega U+(1-\omega)D)U^{k}+\omega F$相比可以看出，红黑排序后在每组节点的计算中，不依赖于同类节点最新的迭代值，具有较好的并行性。
+与SOR迭代$(D-\omega L)U^{k+1}=(\omega U+(1-\omega)D)U^{k}+\omega F$相比可以看出，红黑排序后在每组节点的计算中，不依赖于同类节点最新的迭代值，具有较好的并行性。红黑排序的程序如下。
+
+\begin{center}
+	\setlength{\fboxsep}{0.3pt}
+	\lstset{
+		language={[90]Fortran},
+		extendedchars=false,
+		lineskip=-1pt,
+		basicstyle=\ttfamily\footnotesize\color{black},
+		keywordstyle=\bf,
+		showstringspaces=true,
+		numberstyle=\color{black},
+		%texcl=false,
+		escapeinside=``,
+		numbers=left,
+		frame=single
+	}
+	\lstinputlisting{fdm_sortRB.f90}
+\end{center}
+
+将以上子程序组装为一个完整的程序，并将排序后的矩阵输出到文件中用于后续计算。同时，为了编写串行的SOR程序，将排序前的矩阵也输出到文件中。
+
+\begin{center}
+	\setlength{\fboxsep}{0.3pt}
+	\lstset{
+		language={[90]Fortran},
+		extendedchars=false,
+		lineskip=-1pt,
+		basicstyle=\ttfamily\footnotesize\color{black},
+		keywordstyle=\bf,
+		showstringspaces=true,
+		numberstyle=\color{black},
+		%texcl=false,
+		escapeinside=``,
+		numbers=left,
+		frame=single
+	}
+	\lstinputlisting{fdm_matrix.f90}
+\end{center}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

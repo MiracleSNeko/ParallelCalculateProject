@@ -9,6 +9,20 @@
 !
 !***********************************************************************
 
+!-------------------------常数声明部分----------------------------------
+
+module constant_
+    
+    implicit none
+    integer, parameter :: N = 50
+    integer, parameter :: matrix_size = (N+1)*(N+1)
+    real(4), parameter :: h = 1.0/N
+    integer, parameter :: num_not_bd = matrix_size-2*(N+1)-2*(N-1)
+    integer :: i, j, row, col
+
+end module constant_
+
+
 !--------------------------主程序入口-----------------------------------
 
 program five_point_difference_matrix
@@ -18,10 +32,10 @@ program five_point_difference_matrix
     
     real(4) :: A(0: matrix_size-1, 0: matrix_size-1) = 0
     real(4) :: F(0: matrix_size-1, 1) = 0
+    integer :: color(num_not_bd)
     call generate_matrix(A, F)
     call boundray_condition(A, F)
-
-
+    call sort_RB(A(0: num_not_bd-1, 0: num_not_bd-1), color)
     
 
 end program five_point_difference_matrix
@@ -202,31 +216,61 @@ subroutine boundray_condition(matrix_A, vector_F)
 end subroutine boundray_condition
 
 
-subroutine sort_RB(matrix_A, vector_F, c_)
+subroutine sort_RB(matrix_A, c_)
 
     use constant_
     implicit none
-    
-    real(4), intent(in) :: matrix_A(0: num_not_bd-1, 0: num_not_bd-1)
-    real(4), intent(in) :: vector_F(0: num_not_bd-1, 1)
+
+    real(4), intent(in) :: matrix_A(num_not_bd, num_not_bd)
     integer :: l_ = 1 ! 颜色种数
-    integer :: I_(0: num_not_bd-1) ! 所有节点组成的的集合
-    integer, intent(out) :: c_(0: num_not_bd-1) ! 各个节点所分配的颜色号
-    integer :: T_(0: num_not_bd-1) ! 已标记过颜色的节点集合
-    integer :: S_(0: num_not_bd-1) ! 尚未标记颜色的节点集合
-    integer :: t(2) ! 辅助数组
-    integer :: adj_(0: num_not_bd-1) ! 邻节点组成的集合
+    integer :: I_(num_not_bd) ! 所有节点组成的的集合
+    integer, intent(inout) :: c_(num_not_bd) ! 各个节点所分配的颜色号
+    integer :: T_(num_not_bd) ! 已标记过颜色的节点集合
+    integer :: S_(num_not_bd) ! 尚未标记颜色的节点集合
+    integer :: t(num_not_bd) ! 辅助数组
+    integer :: adj_(num_not_bd) ! 邻节点组成的集合
+    integer :: adj_cap_T(num_not_bd) ! 邻节点中已标记节点组成的集合
     integer :: k_ ! 节点k
-    logical :: flag ! 判断是否将S设定为I\T
 
     ! 各数组赋初值
-    c_(0) = l_
-    I_(0: num_not_bd-1) = (/ (i+1, i = 0, num_not_bd-1)/)
-    c_(1: num_not_bd-1) = 0
+    ! 对数组I_,T_,S_， 元素值为1表示对应下标的节点在数组中，0表示不在数组中
+    ! 通过按位操作和Fortran隐式循环实现集合的运算
+    c_(1) = l_
+    I_ = 1
+    T_ = 0
+    S_ = 1
+    c_(2: num_not_bd-1) = 0
     t_(2) = 0
-    ! 遍历所有节点
-    do while (0 /= T_(num_not_bd-1))
-
+    ! 遍历所有节点，对每个节点进行分类
+    k_ = 0
+    do while (0 == T_(num_not_bd))
+        S_ = (/ (ieor(I_(i), T_(i)), i = 1, num_not_bd) /)
+        ! 选取第一个尚未编号的节点
+        do k_ = 1, num_not_bd
+            if (1 == S_(k_)) exit
+        end do
+        ! 计算节点k_的全部邻节点
+        do i = 1, num_not_bd
+            if (0 /= matrix_A(k_, i)) adj_(i) = 1
+        end do
+        ! 计算邻节点中已标记部分
+        adj_cap_T = (/ (iand(adj_(i), T_(i)), i = 1, num_not_bd) /)
+        ! 更新辅助数组
+        do j = 1, num_not_bd
+            if (1 == adj_cap_T(j)) t(c_(j)) = 1
+        end do
+        ! 对未排序节点染色
+        do j = 1, num_not_bd
+            if (0 == t_(j)) exit
+        end do
+        c_(k_) = j
+        ! 颜色数不足以完成排序，增加颜色
+        if ( l_+1 == j) l_ = l_+1
+        ! 更新数组T_
+        do j = 1, num_not_bd
+            if (1 == adj_cap_T(j)) t(c_(j)) = 0
+        end do
+        T_(k_) = ior(T_(k_), k_)
     end do
 
 end subroutine sort_RB

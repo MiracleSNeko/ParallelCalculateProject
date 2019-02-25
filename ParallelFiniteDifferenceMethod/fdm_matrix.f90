@@ -9,20 +9,6 @@
 !
 !***********************************************************************
 
-!-------------------------常数声明部分----------------------------------
-
-module constant_
-    
-    implicit none
-    integer, parameter :: N = 50
-    integer, parameter :: matrix_size = (N+1)*(N+1)
-    real(4), parameter :: h = 1.0/N
-    integer, parameter :: num_not_bd = matrix_size-2*(N+1)-2*(N-1)
-    integer :: i, j, row, col
-
-end module constant_
-
-
 !--------------------------主程序入口-----------------------------------
 
 program five_point_difference_matrix
@@ -43,28 +29,6 @@ end program five_point_difference_matrix
 
 !-------------------------子程序与函数部分------------------------------
 
-subroutine generate_matrix(matrix_A, vector_F)
-
-    use constant_
-    implicit none
-    
-    real(4), intent(inout) :: matrix_A(0: matrix_size-1, 0: matrix_size-1)
-    !real(4), intent(inout) :: vector_U(matrix_size, 1)
-    real(4), intent(inout) :: vector_F(0: matrix_size-1, 1)
-    
-    ! 构成五点差分的系数矩阵(不含边界)
-    do i = 1, N
-        do j = 1, N
-            matrix_A(i+j*(N+1), i+j*(N+1)) = -4
-            matrix_A(i+(j-1)*(N+1), i+(j-1)*(N+1)) = 1
-            matrix_A(i+(j+1)*(N+1), i+(j+1)*(N+1)) = 1
-            matrix_A(i-1+j*(N+1), i-1+j*(N+1)) = 1
-            matrix_A(i+1+j*(N+1), i+1+j*(N+1)) = 1
-            vector_F(i+j*(N+1), 1) = i*j*h**4
-        end do
-    end do    
-
-end subroutine generate_matrix
 
 
 subroutine boundray_condition(matrix_A, vector_F)
@@ -229,7 +193,7 @@ subroutine boundray_condition(matrix_A, vector_F)
     matrix_A = 0
     vector_F = 0
     matrix_A(0: num_not_bd-1, 0: num_not_bd-1) = buf_A_2(0: num_not_bd-1, 0: num_not_bd-1)
-    vector_F(0: num_not_bd, 1) = buf_F(0: num_not_bd, 1)
+    vector_F(0: num_not_bd-1, 1) = buf_F(0: num_not_bd-1, 1)
 
     deallocate(buf_F)
     deallocate(buf_A_2)
@@ -238,14 +202,31 @@ subroutine boundray_condition(matrix_A, vector_F)
 end subroutine boundray_condition
 
 
-subroutine sort_RB(matrix_A, vector_F)
+subroutine sort_RB(matrix_A, vector_F, c_)
 
     use constant_
     implicit none
     
-    real(4), intent(inout) :: matrix_A(0: num_not_bd, 0: num_not_bd)
-    real(4), intent(inout) :: vector_F(0: num_not_bd, 1)
+    real(4), intent(in) :: matrix_A(0: num_not_bd-1, 0: num_not_bd-1)
+    real(4), intent(in) :: vector_F(0: num_not_bd-1, 1)
+    integer :: l_ = 1 ! 颜色种数
+    integer :: I_(0: num_not_bd-1) ! 所有节点组成的的集合
+    integer, intent(out) :: c_(0: num_not_bd-1) ! 各个节点所分配的颜色号
+    integer :: T_(0: num_not_bd-1) ! 已标记过颜色的节点集合
+    integer :: S_(0: num_not_bd-1) ! 尚未标记颜色的节点集合
+    integer :: t(2) ! 辅助数组
+    integer :: adj_(0: num_not_bd-1) ! 邻节点组成的集合
+    integer :: k_ ! 节点k
+    logical :: flag ! 判断是否将S设定为I\T
 
+    ! 各数组赋初值
+    c_(0) = l_
+    I_(0: num_not_bd-1) = (/ (i+1, i = 0, num_not_bd-1)/)
+    c_(1: num_not_bd-1) = 0
+    t_(2) = 0
+    ! 遍历所有节点
+    do while (0 /= T_(num_not_bd-1))
 
+    end do
 
 end subroutine sort_RB

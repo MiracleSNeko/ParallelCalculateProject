@@ -328,6 +328,83 @@ $$\frac{u_{i,j+1}-2u_{i,j}+u_{i,j-1}}{h^{2}}+\frac{u_{i+1,j}-2u_{i,j}+u_{i-1,j}}
 
 处理完边界条件后，为了并行化SOR迭代，需要对矩阵进行红黑排序。红黑排序以及多色排序的基本思想是利用排序技术，使排序后的矩阵可以分块为对角块是对角矩阵的形式，对网格点进行分类，使得任何一类网格点上值的更新只依赖于其他类网格点的值，同一类网格点之间的最新迭代值之间互不依赖。分组过程可以具体描述如下：用$l$记录所采用颜色的种数，$I$记录所有节点组成的集合，$c$记录各个节点所分配的颜色号，$T$记录已标记过颜色的节点集合，$S$记录尚未标颜色的节点集合，$\textrm{adj}_{k}$表示节点$k$的邻节点所组成的集合，辅助数组$t$用$t_{i}=0$或$1$表示颜色$i$在邻节点中没有/已经被使用过。多色排序的算法由如下的伪代码给出。
 
+\begin{CJK*}{UTF8}{gkai}
+	\begin{algorithm}
+		\caption{多色排序}
+		\begin{algorithmic}[1] %每行显示行号
+			\State $l \gets 0,c_{1}\gets l,I \gets \{1,2,\cdots,n\},T\gets \{1\}$
+			\For{$i = 2\to n$} $c_{i}\gets 0$
+			\EndFor
+			\For{$i = 1\to n$} $t_{i}\gets 0$
+			\EndFor
+			\While{$T \neq \{1,2,\cdots,n\}$}
+				\State $S\gets I\ T,\textrm{Select} k\in S$
+				\For{$j\in \textrm{adj}_{k}\cap T$}  $t_{c_{j}}\gets 1$
+				\EndFor
+				\For{$j = 1\to l$}
+					\If{$t_{j} = 0$} $\textrm{Break}$ 
+					\EndIf
+				\EndFor
+				\State $c_{j}\gets j$
+				\If{$j = l+1$} $l\gets l+1$
+				\EndIf
+				\For{$j\in \textrm{adj}_{k}\cap T$} $t_{c_{j}}\gets 0$
+				\EndFor
+				\State $T \gets T\cup \{k\}$
+			\EndWhile
+		\end{algorithmic}
+	\end{algorithm}
+\end{CJK*}
+
+在对矩阵多色排序之后，矩阵变为如下形式：
+
+$$\left[\begin{matrix}
+D_{R} & C_{1}\\
+C_{2} & D_{B}
+\end{matrix}\right]$$
+
+其中$D_{R},D_{B}$是对角矩阵。对右端项做相同的分类，则方程$Au=F$可以写成
+
+$$\left[\begin{matrix}
+D_{R} & C_{1}\\
+C_{2} & D_{B}
+\end{matrix}\right]
+\left[\begin{matrix}
+U_{R}\\
+U_{B}
+\end{matrix}\right]=
+\left[\begin{matrix}
+F_{R}\\
+F_{B}
+\end{matrix}\right]$$
+
+对应的SOR迭代格式为
+
+$$\left[\begin{matrix}
+D_{R} & \\
+\omega C_{2} & D_{B}
+\end{matrix}\right]
+\left[\begin{matrix}
+U_{R}^{k+1}\\
+U_{B}^{k+1}
+\end{matrix}\right]=
+\left[\begin{matrix}
+(1-\omega)D_{R} & -\omega C_{1}\\
+& (1-\omega)D_{B}
+\end{matrix}\right]
+\left[\begin{matrix}
+U_{R}^{k}\\
+U_{B}^{k}
+\end{matrix}\right]+
+\omega
+\left[\begin{matrix}
+F_{R}\\
+F_{B}
+\end{matrix}\right]$$
+
+与SOR迭代$(D-\omega L)U^{k+1}=(\omega U+(1-\omega)D)U^{k}+\omega F$相比可以看出，红黑排序后在每组节点的计算中，不依赖于同类节点最新的迭代值，具有较好的并行性。
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{运行结果与分析}
 

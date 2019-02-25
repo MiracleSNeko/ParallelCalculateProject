@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.7)  25 FEB 2019 03:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.7)  25 FEB 2019 11:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1600,18 +1600,300 @@ n/10.53937/66 ô \C70/rm/m/n/10.53937/65 9 \C70/rm/m/n/10.53937/4e :\OT1/cmr/m/n
  []
 
 [7 <./Q01.png (PNG copy)>] (./fdm_generate_matrix.f90) (./fdm_constant.f90)
-(./fdm_boundray_condition.f90 [8] [9]) [10] [11] (./parallel.aux)
+(./fdm_boundray_condition.f90 [8] [9]) [10] [11]
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.409 	U_{R}^{k+1}=D_{R}^{-1}\[
+                               \omega F_{R}+(1-\omega)D_{R}U_{R}^{k}-\omega ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing \endgroup inserted.
+<inserted text> 
+                \endgroup 
+l.409 ...ga)D_{R}U_{R}^{k}-\omega C_{1}U_{B}^{k}\]
+                                                  \\
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.409 ...ga)D_{R}U_{R}^{k}-\omega C_{1}U_{B}^{k}\]
+                                                  \\
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+! LaTeX Error: \begin{aligned} on input line 408 ended by \end{equation*}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.409 ...ga)D_{R}U_{R}^{k}-\omega C_{1}U_{B}^{k}\]
+                                                  \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.409 ...ga)D_{R}U_{R}^{k}-\omega C_{1}U_{B}^{k}\]
+                                                  \\
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.409 ...ga)D_{R}U_{R}^{k}-\omega C_{1}U_{B}^{k}\]
+                                                  \\
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing \cr inserted.
+<inserted text> 
+                \cr 
+l.409 ...ga)D_{R}U_{R}^{k}-\omega C_{1}U_{B}^{k}\]
+                                                  \\
+I'm guessing that you meant to end an alignment here.
+
+! Missing { inserted.
+<inserted text> 
+                {
+l.409 ...ga)D_{R}U_{R}^{k}-\omega C_{1}U_{B}^{k}\]
+                                                  \\
+I've put in what seems to be necessary to fix
+the current column of the current alignment.
+Try to go on, since this might almost work.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.409 ...ga)D_{R}U_{R}^{k}-\omega C_{1}U_{B}^{k}\]
+                                                  \\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.409 ...ga)D_{R}U_{R}^{k}-\omega C_{1}U_{B}^{k}\]
+                                                  \\
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.410 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing \right. inserted.
+<inserted text> 
+                \right .
+l.410 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Display math should end with $$.
+<to be read again> 
+                   \par 
+l.410 
+      
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.411 	U_
+         {B}^{k+1}=D_{B}^{-1}\[\omega F_{B}+(1-\omega)D_{B}U_{B}^{k}-\omega ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.411 	U_{B}^{k+1}=D_{B}^{-1}\[
+                               \omega F_{B}+(1-\omega)D_{B}U_{B}^{k}-\omega ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing \endgroup inserted.
+<inserted text> 
+                \endgroup 
+l.411 ...)D_{B}U_{B}^{k}-\omega C_{2}U_{R}^{k+1}\]
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+! LaTeX Error: \begin{equation} on input line 406 ended by \end{equation*}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.411 ...)D_{B}U_{B}^{k}-\omega C_{2}U_{R}^{k+1}\]
+                                                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.411 ...)D_{B}U_{B}^{k}-\omega C_{2}U_{R}^{k+1}\]
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Misplaced \crcr.
+\endaligned ->\crcr 
+                    \egroup \restorecolumn@ \egroup 
+l.412 	\end{aligned}
+                    
+I can't figure out why you would want to use a tab mark
+or \cr or \span just now. If something like a right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Too many }'s.
+\endaligned ->\crcr \egroup 
+                            \restorecolumn@ \egroup 
+l.412 	\end{aligned}
+                    
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+! Too many }'s.
+\endaligned ...cr \egroup \restorecolumn@ \egroup 
+                                                  
+l.412 	\end{aligned}
+                    
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+
+! LaTeX Error: \begin{document} ended by \end{aligned}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.412 	\end{aligned}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.412 	\end{aligned}
+                    
+Things are pretty mixed up, but I think the worst is over.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.413 	\right
+             .
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra \right.
+l.413 	\right.
+              
+I'm ignoring a \right that had no matching \left.
+
+
+! LaTeX Error: \begin{document} ended by \end{equation}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.414 \end{equation}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.414 \end{equation}
+                    
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.414 \end{equation}
+                    
+Things are pretty mixed up, but I think the worst is over.
+
+[12] (./parallel.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.41063pt have occurred.
 
  ) 
 Here is how much of TeX's memory you used:
- 20041 strings out of 492995
- 337444 string characters out of 6136403
+ 20068 strings out of 492995
+ 337875 string characters out of 6136403
  452499 words of memory out of 5000000
- 22878 multiletter control sequences out of 15000+600000
- 62930 words of font info for 237 fonts, out of 8000000 for 9000
+ 22903 multiletter control sequences out of 15000+600000
+ 63470 words of font info for 239 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,14n,58p,10436b,1293s stack positions out of 5000i,500n,10000p,200000b,80000s
 <c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts/simfang.ttf><c:/WINDOWS/fonts
@@ -1673,16 +1955,17 @@ t/fonts/type1/public/amsfonts/cm/cmbx7.pfb><d:/texlive/2017/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmex10.pfb><d:/texlive/2017/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmitt10.pfb><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmmi10.pfb><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
-i7.pfb><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:
-/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:/texlive/2
-017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/texlive/2017/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><d:/texlive/2017/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy7.pfb><d:/texlive/2017/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmtt8.pfb>
-Output written on parallel.pdf (11 pages, 761532 bytes).
+i5.pfb><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><d:
+/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/texlive/2
+017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:/texlive/2017/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/texlive/2017/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb><d:/texlive/2017/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy7.pfb><d:/texlive/2017/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmtt8.pfb>
+Output written on parallel.pdf (12 pages, 777265 bytes).
 PDF statistics:
- 731 PDF objects out of 1000 (max. 8388607)
- 488 compressed objects within 5 object streams
+ 738 PDF objects out of 1000 (max. 8388607)
+ 493 compressed objects within 5 object streams
  0 named destinations out of 1000 (max. 500000)
  287 words of extra memory for PDF output out of 10000 (max. 10000000)
 

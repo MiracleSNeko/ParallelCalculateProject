@@ -37,17 +37,13 @@ program five_point_difference_matrix
     integer :: k, flag = 0, color_i
     call generate_matrix(A, F)
     call boundray_condition(A, F)
-    open(8, file = 'matrix', access = 'direct', form = 'unformatted', recl = 4)
+    open(8, file = 'matrix.dat')
     do i = 0, num_not_bd
-        do j = 0, num_not_bd
-            write(8, rec = i*num_not_bd+j) A(i, j)
-        end do
+        write(8, *) A(i, 0: num_not_bd-1)
     end do
     close(8)
-    open(8, file = 'vector', access = 'direct', form = 'unformatted', recl = 4)
-    do i = 0, num_not_bd
-        write(8, rec = i) F(i, 1)
-    end do
+    open(8, file = 'vector.dat')
+    write(8, *) F(0: num_not_bd-1, 1)
     close(8)
     call sort_RB(A(0: num_not_bd-1, 0: num_not_bd-1), color)
     do while(.true.)
@@ -76,19 +72,15 @@ program five_point_difference_matrix
     do i = 0, num_not_bd-1
         F_buf(i, 1) = F(rule(i), 1)
     end do
-    open(8, file = 'matrix_rb', access = 'direct', form = 'unformatted', recl = 4)
+    open(8, file = 'matrix_rb.dat')
     do i = 0, num_not_bd
-        do j = 0, num_not_bd
-            write(8, rec = i*num_not_bd+j) A_buf(i, j)
-        end do
+        write(8, *) A_buf(i, 0: num_not_bd-1)
     end do
     close(8)
-    open(8, file = 'vector_rb', access = 'direct', form = 'unformatted', recl = 4)
-    do i = 0, num_not_bd
-        write(8, rec = i) F_buf(i, 1)
-    end do
+    open(8, file = 'vector_rb.dat')
+    write(8, *) F_buf(0: num_not_bd-1, 1)
     close(8)
-    open(8, file = 'rule_inverse.txt')
+    open(8, file = 'rule_inverse.dat')
     write(8, *) rule_inverse
     close(8)
 
@@ -97,6 +89,27 @@ end program five_point_difference_matrix
 
 !-------------------------子程序与函数部分------------------------------
 
+subroutine generate_matrix(matrix_A, vector_F)
+
+    use constant_
+    implicit none
+    
+    real(4), intent(inout) :: matrix_A(0: matrix_size-1, 0: matrix_size-1)
+    real(4), intent(inout) :: vector_F(0: matrix_size-1, 1)
+    
+    ! 构成五点差分的系数矩阵(不含边界)
+    do i = 1, N
+        do j = 1, N
+            matrix_A(i+j*(N+1), i+j*(N+1)) = -4
+            matrix_A(i+(j-1)*(N+1), i+(j-1)*(N+1)) = 1
+            matrix_A(i+(j+1)*(N+1), i+(j+1)*(N+1)) = 1
+            matrix_A(i-1+j*(N+1), i-1+j*(N+1)) = 1
+            matrix_A(i+1+j*(N+1), i+1+j*(N+1)) = 1
+            vector_F(i+j*(N+1), 1) = i*j*h**4
+        end do
+    end do    
+
+end subroutine generate_matrix
 
 
 subroutine boundray_condition(matrix_A, vector_F)
@@ -108,7 +121,8 @@ subroutine boundray_condition(matrix_A, vector_F)
     
     real(4), intent(inout) :: matrix_A(0: matrix_size-1, 0: matrix_size-1)
     real(4), intent(inout) :: vector_F(0: matrix_size-1, 1)
-    real(4), allocatable :: buf_A_1(:, :), buf_A_2(:, :), buf_F(:, :)
+    real(4) :: buf_A_1(0: matrix_size-1, 0: num_not_bd-1), buf_A_2(0: num_not_bd-1, 0: num_not_bd-1)
+    real(4) :: buf_F(0: num_not_bd-1 , 1)
     integer :: index_zero(2*(N+1)-2*(N-1)), index_notzero(num_not_bd)
     
     ! 初始化边界条件
@@ -239,21 +253,18 @@ subroutine boundray_condition(matrix_A, vector_F)
         end if
     end do
     ! 去掉全零行
-    allocate(buf_A_1(0:matrix_size-1, 0:num_not_bd-1))
     do i = 0, num_not_bd
         do j = 0 ,matrix_size
             buf_A_1(j, i) = matrix_A(j, index_notzero(i))
         end do
     end do
     ! 去掉全零列
-    allocate(buf_A_2(0:num_not_bd-1, 0:num_not_bd-1))
     do i = 0, num_not_bd
         do j = 0 ,num_not_bd
             buf_A_1(j, i) = matrix_A(index_notzero(j), i)
         end do
     end do
     ! 对应处理右端项
-    allocate(buf_F(0: num_not_bd-1, 1))
     do i = 0, num_not_bd
         buf_F(i, 1) = vector_F(index_notzero(i), 1)
     end do
@@ -262,10 +273,6 @@ subroutine boundray_condition(matrix_A, vector_F)
     vector_F = 0
     matrix_A(0: num_not_bd-1, 0: num_not_bd-1) = buf_A_2(0: num_not_bd-1, 0: num_not_bd-1)
     vector_F(0: num_not_bd-1, 1) = buf_F(0: num_not_bd-1, 1)
-
-    deallocate(buf_F)
-    deallocate(buf_A_2)
-    deallocate(buf_A_1)
 
 end subroutine boundray_condition
 

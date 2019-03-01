@@ -30,13 +30,67 @@ program five_point_difference_matrix
     use constant_
     implicit none
     
-    real(4) :: A(0: matrix_size-1, 0: matrix_size-1) = 0
-    real(4) :: F(0: matrix_size-1, 1) = 0
+    real(4) :: A(0: matrix_size-1, 0: matrix_size-1) = 0, A_buf(0: num_not_bd-1,0: num_not_bd-1)
+    real(4) :: F(0: matrix_size-1, 1) = 0, F_buf(0: num_not_bd-1, 1)
     integer :: color(num_not_bd)
+    integer :: rule(num_not_bd), rule_inverse(num_not_bd)
+    integer :: k, flag = 0, color_i
     call generate_matrix(A, F)
     call boundray_condition(A, F)
+    open(8, file = 'matrix', access = 'direct', form = 'unformatted', recl = 4)
+    do i = 0, num_not_bd
+        do j = 0, num_not_bd
+            write(8, rec = i*num_not_bd+j) A(i, j)
+        end do
+    end do
+    close(8)
+    open(8, file = 'vector', access = 'direct', form = 'unformatted', recl = 4)
+    do i = 0, num_not_bd
+        write(8, rec = i) F(i, 1)
+    end do
+    close(8)
     call sort_RB(A(0: num_not_bd-1, 0: num_not_bd-1), color)
-    
+    do while(.true.)
+        do i = 0, num_not_bd-1
+            if (0 /= color(i)) exit
+        end do
+        if (num_not_bd-1 == i) flag = 1
+        color_i = color(i)
+        do j = i, num_not_bd-1
+            if (color_i == color(j)) then
+                rule(k) = j
+                color(j) = 0
+                k = k+1
+            end if
+        end do
+        if (1 == flag) exit
+    end do
+    do i = 0, num_not_bd-1
+        rule_inverse(rule(i)) = i
+    end do
+    do i = 0, num_not_bd-1
+        do j = 0, num_not_bd-1 
+            A_buf(i, j) = A(rule(i), rule(j))
+        end do
+    end do
+    do i = 0, num_not_bd-1
+        F_buf(i, 1) = F(rule(i), 1)
+    end do
+    open(8, file = 'matrix_rb', access = 'direct', form = 'unformatted', recl = 4)
+    do i = 0, num_not_bd
+        do j = 0, num_not_bd
+            write(8, rec = i*num_not_bd+j) A_buf(i, j)
+        end do
+    end do
+    close(8)
+    open(8, file = 'vector_rb', access = 'direct', form = 'unformatted', recl = 4)
+    do i = 0, num_not_bd
+        write(8, rec = i) F_buf(i, 1)
+    end do
+    close(8)
+    open(8, file = 'rule_inverse.txt')
+    write(8, *) rule_inverse
+    close(8)
 
 end program five_point_difference_matrix
 
